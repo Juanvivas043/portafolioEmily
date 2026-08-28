@@ -1,26 +1,140 @@
 @import "tailwindcss";
 
+/* ---------------------------------------------------------------------------
+   Sistema de diseño
+   Paleta oscura con grano, display crema y acentos magenta / violeta / naranja.
+   Tailwind v4 es CSS-first: estos tokens generan las utilidades directamente
+   (bg-surface, text-bone, font-display...), sin tailwind.config.js.
+--------------------------------------------------------------------------- */
+@theme {
+  --color-void: #0a090c;
+  --color-surface: #16121c;
+  --color-raised: #1e1926;
+  --color-bone: #f4ead6;
+  --color-mist: #b9b2c4;
+  --color-muted: #9a92a8;
+  --color-magenta: #ff2e88;
+  --color-violet: #a855f7;
+  --color-grape: #7c3aed;
+  --color-ember: #ff7a3d;
+  --color-mint: #34d399;
+
+  --font-display: var(--font-bakbak), "Arial Black", "Helvetica Neue", sans-serif;
+  --font-sans: var(--font-jakarta), "Segoe UI", system-ui, sans-serif;
+
+  --radius-card: 1.75rem;
+
+  --ease-out-soft: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* El degradado firma y su versión con textura se usan en varios sitios, así que
+   viven como custom properties en lugar de repetirse en cada componente. */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+  --gradient-signature: linear-gradient(120deg, #ff7a3d, #ff2e88 52%, #a855f7);
+  --gradient-mesh:
+    radial-gradient(120% 92% at 6% 10%, #ff9a3d 0%, rgba(255, 154, 61, 0) 54%),
+    radial-gradient(96% 100% at 92% 18%, #a855f7 0%, rgba(168, 85, 247, 0) 56%),
+    radial-gradient(110% 110% at 76% 96%, #ff1f7a 0%, rgba(255, 31, 122, 0) 60%),
+    linear-gradient(152deg, #ff6b2c, #e01e6e 46%, #7c3aed);
+  /* Ruido generado con feTurbulence: cero peso de red frente a una textura PNG. */
+  --texture-grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.7'/%3E%3C/svg%3E");
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  color-scheme: dark;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--color-void);
+  color: var(--color-bone);
+  font-family: var(--font-sans);
+}
+
+/* Capa de grano global. Va en un ::before del body para no meter un div vacío
+   en el árbol y para que quede por debajo de cualquier contenido posicionado. */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.34;
+  mix-blend-mode: overlay;
+  background-image: var(--texture-grain);
+}
+
+@utility grain {
+  position: relative;
+
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    pointer-events: none;
+    opacity: 0.34;
+    mix-blend-mode: overlay;
+    background-image: var(--texture-grain);
+  }
+}
+
+@utility gradient-text {
+  background: var(--gradient-signature);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+/* ---------------------------------------------------------------------------
+   Movimiento
+   Las animaciones de scroll usan `animation-timeline` nativo cuando existe, que
+   corre en el compositor. El fallback por IntersectionObserver marca
+   [data-revealed] y solo se activa donde no hay soporte.
+--------------------------------------------------------------------------- */
+@keyframes reveal-up {
+  from {
+    opacity: 0;
+    transform: translateY(2.5rem);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes parallax-shift {
+  from {
+    transform: translateY(var(--parallax-from, 6%));
+  }
+  to {
+    transform: translateY(var(--parallax-to, -6%));
+  }
+}
+
+@keyframes marquee-run {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes scroll-progress {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+/* Un solo bloque apaga todo el movimiento para quien lo pide. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
