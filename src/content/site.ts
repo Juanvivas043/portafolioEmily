@@ -19,6 +19,44 @@ export type SocialLink = {
   href: string;
 };
 
+/**
+ * URL pública del sitio, para canonical, sitemap y Open Graph.
+ *
+ * `metadataBase` la parsea en build y revienta el despliegue entero si no es
+ * una URL absoluta válida, así que aquí no vale un hueco entre corchetes ni
+ * confiar en que la variable esté bien puesta.
+ *
+ * Dos cosas que ya han fallado y por eso están cubiertas:
+ *
+ * 1. Una variable declarada pero VACÍA. `??` solo cae al valor por defecto con
+ *    null o undefined, no con "", así que la cadena vacía se colaba hasta
+ *    `new URL("")`. Por eso se comprueba el contenido, no la existencia.
+ * 2. Un dominio sin protocolo, tipo "miweb.com", que tampoco es URL válida.
+ *    Se le antepone https:// en lugar de romper el build.
+ *
+ * Si no hay nada configurado, se usa el dominio que asigna Vercel, de modo que
+ * un despliegue recién creado funciona sin tocar ninguna variable.
+ */
+function resolveSiteUrl(): string {
+  const normalizar = (valor: string) => {
+    const limpio = valor.trim().replace(/\/+$/, "");
+    if (!limpio) return null;
+    return /^https?:\/\//i.test(limpio) ? limpio : `https://${limpio}`;
+  };
+
+  const explicita = normalizar(process.env.NEXT_PUBLIC_SITE_URL ?? "");
+  if (explicita) return explicita;
+
+  // Vercel expone el dominio sin protocolo. El de producción es estable entre
+  // despliegues; VERCEL_URL cambia en cada uno, así que solo vale de reserva.
+  const vercel =
+    normalizar(process.env.VERCEL_PROJECT_PRODUCTION_URL ?? "") ??
+    normalizar(process.env.VERCEL_URL ?? "");
+  if (vercel) return vercel;
+
+  return "http://localhost:3000";
+}
+
 export const site = {
   name: "Emily",
   /** Apellido u ocupación larga para el pie y los metadatos. */
@@ -40,12 +78,8 @@ export const site = {
   workingHours: "9:00 – 18:00",
   workingDays: "Lunes a viernes",
 
-  /**
-   * Se usa en canonical, sitemap y Open Graph. Tiene que ser una URL válida
-   * (metadataBase la parsea en build), así que el hueco no puede ir entre
-   * corchetes: se rellena con NEXT_PUBLIC_SITE_URL al desplegar.
-   */
-  url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://portafolio-emily.example.com",
+  /** Se usa en canonical, sitemap y Open Graph. Ver resolveSiteUrl. */
+  url: resolveSiteUrl(),
   locale: "es_VE",
 } as const;
 
