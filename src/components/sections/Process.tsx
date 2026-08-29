@@ -1,3 +1,4 @@
+import { Assemble } from "@/components/motion/Assemble";
 import { Reveal } from "@/components/motion/Reveal";
 import { Sticker } from "@/components/ui/Sticker";
 import { processSteps } from "@/content/process";
@@ -115,13 +116,15 @@ export function Process() {
         </ol>
       </div>
 
-      <Sticker
-        variant="nube"
-        fill="#A855F7"
-        size={96}
-        rotate={-10}
+      <Assemble
+        y={4.5}
+        x={2}
+        rotate={-15}
+        scale={0.8}
         className="pointer-events-none absolute right-8 bottom-10 hidden xl:block"
-      />
+      >
+        <Sticker variant="nube" fill="#A855F7" size={96} rotate={-10} />
+      </Assemble>
     </section>
   );
 }

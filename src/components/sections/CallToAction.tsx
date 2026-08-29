@@ -1,11 +1,12 @@
 import { ArrowRight } from "lucide-react";
 
+import { Assemble } from "@/components/motion/Assemble";
 import { Reveal } from "@/components/motion/Reveal";
 import { Sticker } from "@/components/ui/Sticker";
 import { site } from "@/content/site";
 
 /**
- * Llamada a la acción a sangre completa, entre el portfolio y el contacto.
+ * Llamada a la acción a sangre completa, entre el portafolio y el contacto.
  *
  * Es la única superficie clara de toda la página: después de tanto oscuro,
  * invertir el contraste es lo que la hace imposible de saltar. El texto va en
@@ -76,12 +77,15 @@ export function CallToAction() {
         </Reveal>
       </div>
 
-      <Sticker
-        variant="corazon"
-        size={112}
-        rotate={12}
+      <Assemble
+        y={5}
+        x={2.5}
+        rotate={20}
+        scale={0.75}
         className="pointer-events-none absolute -right-6 -bottom-8 hidden opacity-90 xl:block"
-      />
+      >
+        <Sticker variant="corazon" size={112} rotate={12} />
+      </Assemble>
     </section>
   );
 }

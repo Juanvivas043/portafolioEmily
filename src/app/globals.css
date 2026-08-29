@@ -199,6 +199,46 @@ body::after {
   }
 }
 
+/*
+ * Armado y desarmado.
+ *
+ * A diferencia de las entradas, esto SÍ va atado al scroll, y a propósito: la
+ * pieza llega descolocada, se asienta a mitad de su paso por pantalla y se
+ * vuelve a descolocar al salir. Eso solo se puede conseguir con el scroll
+ * mandando, porque depende de dónde estás, no de cuánto tiempo ha pasado.
+ *
+ * Solo transform: nada de opacidad, desenfoque ni mezclas, para que el
+ * compositor lo resuelva sin repintar.
+ */
+@keyframes assemble {
+  from {
+    transform: translate3d(
+        calc(var(--asm-x, 0rem) * -1),
+        var(--asm-y, 2.5rem),
+        0
+      )
+      rotate(calc(var(--asm-rotate, 5deg) * -1)) scale(var(--asm-scale, 0.94));
+  }
+  42%,
+  58% {
+    transform: none;
+  }
+  to {
+    transform: translate3d(
+        var(--asm-x, 0rem),
+        calc(var(--asm-y, 2.5rem) * -1),
+        0
+      )
+      rotate(var(--asm-rotate, 5deg)) scale(var(--asm-scale, 0.94));
+  }
+}
+
+[data-assemble] {
+  animation: assemble linear both;
+  animation-timeline: view();
+  animation-range: cover 0% cover 100%;
+}
+
 @keyframes parallax-shift {
   from {
     transform: translateY(var(--parallax-from, 6%));
@@ -445,6 +485,17 @@ body::after {
   [data-reveal],
   [data-reveal] > [data-reveal-inner] {
     opacity: 1 !important;
+    transform: none !important;
+  }
+
+  /*
+   * Aquí no basta con acortar la duración: el relleno «both» dejaría la pieza
+   * clavada en el último fotograma, o sea descolocada para siempre. Hay que
+   * apagar la animación entera.
+   */
+  [data-assemble],
+  [data-parallax] {
+    animation: none !important;
     transform: none !important;
   }
 }

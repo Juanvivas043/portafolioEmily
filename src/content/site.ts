@@ -31,9 +31,9 @@ export const site = {
     "Llevo la cuenta, escribo el brief y produzco el contenido. Un solo interlocutor entre tu marca y el equipo creativo.",
 
   email: "hola@emily.com",
-  phone: "+34 600 123 456",
-  location: "Madrid",
-  /** Se muestra junto a la ubicación: «Madrid · disponible en remoto». */
+  phone: "+58 412 123 4567",
+  location: "Caracas, Venezuela",
+  /** Se muestra junto a la ubicación: «Caracas, Venezuela · disponible en remoto». */
   availability: "disponible en remoto",
   /** Aparece en el formulario y en la sección de contacto. */
   responseTime: "24 h",
@@ -46,7 +46,7 @@ export const site = {
    * corchetes: se rellena con NEXT_PUBLIC_SITE_URL al desplegar.
    */
   url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://portafolio-emily.example.com",
-  locale: "es_ES",
+  locale: "es_VE",
 } as const;
 
 export const socials: SocialLink[] = [

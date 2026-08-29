@@ -1,7 +1,9 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { ArrowUpRight, X } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
+
+import { MenuIcon } from "@/components/ui/MenuIcon";
 
 import { SocialIcon } from "@/components/ui/SocialIcon";
 
@@ -94,7 +96,7 @@ export function MobileNav({ state, activeId, onClose, onExited }: MobileNavProps
             aria-label="Cerrar el menú"
             className="grid size-12 place-items-center rounded-2xl bg-raised text-bone"
           >
-            <X size={20} strokeWidth={2.2} />
+            <MenuIcon open size={20} />
           </button>
         </div>
 

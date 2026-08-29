@@ -1,5 +1,4 @@
-import { Parallax } from "@/components/motion/Parallax";
-import { Reveal } from "@/components/motion/Reveal";
+import { Assemble } from "@/components/motion/Assemble";
 import { PortraitPlaceholder } from "@/components/ui/PortraitPlaceholder";
 import { Sticker } from "@/components/ui/Sticker";
 
@@ -22,8 +21,7 @@ export function About() {
       </span>
 
       <div className="grid gap-10 lg:grid-cols-[minmax(0,1.45fr)_minmax(0,1fr)] lg:items-start lg:gap-14">
-        <Parallax shift={6} className="lg:-rotate-[1.6deg]">
-          <Reveal variant="tilt" tilt={-3}>
+        <Assemble y={3} x={-1.2} rotate={-3.5} className="lg:-rotate-[1.6deg]">
           <article className="grain relative rounded-sm bg-[linear-gradient(172deg,#F7EEDC,#F1E6CF)] px-7 py-9 shadow-[0_36px_74px_-20px_rgba(0,0,0,0.86)] sm:px-12 sm:py-11">
             <div className="flex items-center gap-3">
               <span className="text-xs font-extrabold tracking-[0.24em] text-[#554C61] uppercase">
@@ -93,24 +91,20 @@ export function About() {
               </p>
             </div>
           </article>
-        </Reveal>
-        </Parallax>
+        </Assemble>
 
         <div className="flex flex-col gap-8">
-          <Parallax shift={8} className="lg:rotate-[4.5deg]">
-            <Reveal variant="tilt" tilt={5} delay={0.08}>
+          <Assemble y={4.5} x={1.5} rotate={5} className="lg:rotate-[4.5deg]">
             <figure className="bg-[linear-gradient(168deg,#F3EAD8,#E7DCC6)] p-4 shadow-[0_38px_72px_-22px_rgba(0,0,0,0.9)]">
               <PortraitPlaceholder className="aspect-4/5 w-full" />
               <figcaption className="px-1 pt-3 text-[15px] font-medium text-[#2A2333] italic">
                 Emily, en su sitio favorito para pensar
               </figcaption>
             </figure>
-          </Reveal>
-          </Parallax>
+          </Assemble>
 
           <div className="flex flex-col gap-8 sm:flex-row sm:items-start lg:flex-col">
-            <Parallax shift={8} reverse className="lg:-rotate-[5deg]">
-              <Reveal variant="tilt" tilt={-6} delay={0.14}>
+            <Assemble y={3.5} x={-1.8} rotate={-6} reverse className="lg:-rotate-[5deg]">
               <aside className="flex flex-col gap-3 bg-[linear-gradient(158deg,#FFC24A,#FF8A3D_62%,#FF7A3D)] p-6 shadow-[0_24px_44px_-16px_rgba(0,0,0,0.82)] sm:max-w-[13rem]">
                 <span className="text-xs font-extrabold tracking-[0.18em] text-[#3A1408] uppercase">
                   Regla nº 1
@@ -119,11 +113,9 @@ export function About() {
                   Si el brief no cabe en una frase, todavía no está listo.
                 </p>
               </aside>
-            </Reveal>
-            </Parallax>
+            </Assemble>
 
-            <Parallax shift={9} className="lg:rotate-[3.2deg]">
-              <Reveal variant="tilt" tilt={4} delay={0.2}>
+            <Assemble y={4} x={1.2} rotate={4.5} className="lg:rotate-[3.2deg]">
               <aside className="flex flex-col gap-2.5 bg-[linear-gradient(172deg,#F8F3E5,#EAE3D0)] px-5 py-4 shadow-[0_20px_38px_-18px_rgba(0,0,0,0.86)] sm:max-w-[19rem]">
                 <span className="text-xs font-extrabold tracking-[0.15em] text-[#3B3348] uppercase">
                   Tiquet de caja
@@ -168,18 +160,20 @@ export function About() {
                   </span>
                 </p>
               </aside>
-            </Reveal>
-            </Parallax>
+            </Assemble>
           </div>
         </div>
       </div>
 
-      <Sticker
-        variant="mancha"
-        size={108}
-        rotate={-12}
+      <Assemble
+        y={5}
+        x={-2}
+        rotate={-16}
+        scale={0.8}
         className="pointer-events-none absolute bottom-10 left-4 hidden xl:block"
-      />
+      >
+        <Sticker variant="mancha" size={108} rotate={-12} />
+      </Assemble>
     </section>
   );
 }

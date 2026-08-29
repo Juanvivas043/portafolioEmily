@@ -4,7 +4,8 @@ import { useState } from "react";
 import { ArrowUpRight } from "lucide-react";
 
 import { MobileNav } from "@/components/layout/MobileNav";
-import { navItems, sectionIds } from "@/content/nav";
+import { MenuIcon } from "@/components/ui/MenuIcon";
+import { headerNavItems, sectionIds } from "@/content/nav";
 import { site } from "@/content/site";
 import { useScrollSpy } from "@/hooks/useScrollSpy";
 
@@ -31,8 +32,8 @@ export function Header() {
           </a>
 
           <nav className="hidden lg:block">
-            <ul className="flex items-center gap-[34px]">
-              {navItems.slice(0, 4).map((item) => {
+            <ul className="flex items-center gap-6 xl:gap-8">
+              {headerNavItems.map((item) => {
                 const isActive = activeId === item.href.slice(1);
                 return (
                   <li key={item.href}>
@@ -65,11 +66,10 @@ export function Header() {
             onClick={() => setMenu("open")}
             aria-label="Abrir el menú"
             aria-expanded={menu === "open"}
-            className="grid size-12 place-items-center gap-[5px] rounded-2xl bg-raised lg:hidden"
+            className="inline-flex min-h-12 items-center gap-2.5 rounded-full border border-bone/15 bg-raised pr-5 pl-4 text-[12px] font-extrabold tracking-[0.14em] text-bone uppercase transition-colors hover:border-magenta/50 lg:hidden"
           >
-            <span className="h-0.5 w-[18px] rounded-sm bg-bone" />
-            <span className="h-0.5 w-3 rounded-sm bg-magenta" />
-            <span className="h-0.5 w-[18px] rounded-sm bg-bone" />
+            <MenuIcon />
+            Menú
           </button>
         </div>
       </header>

@@ -47,11 +47,11 @@ export default async function ProjectPage({
       <main className="relative z-10">
         <div className="px-6 pt-10 sm:px-10 lg:px-[72px]">
           <Link
-            href="/#portfolio"
+            href="/#portafolio"
             className="inline-flex items-center gap-2.5 text-sm font-semibold text-mist transition-colors hover:text-bone"
           >
             <ArrowLeft size={16} strokeWidth={2.4} />
-            Volver al portfolio
+            Volver al portafolio
           </Link>
         </div>
 

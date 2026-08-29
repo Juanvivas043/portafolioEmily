@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#FF7A3D"/>
+      <stop offset="52%" stop-color="#FF2E88"/>
+      <stop offset="100%" stop-color="#A855F7"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="64" height="64" rx="15" fill="url(#g)"/>
+
+  <!-- La E va dibujada con rectángulos y no como texto: una fuente en un
+       favicon depende de lo que tenga instalado quien lo mire. -->
+  <g fill="#0A090C">
+    <rect x="19" y="14" width="12" height="36" rx="2.5"/>
+    <rect x="19" y="14" width="27" height="11" rx="2.5"/>
+    <rect x="19" y="26.5" width="21" height="10" rx="2.5"/>
+    <rect x="19" y="39" width="27" height="11" rx="2.5"/>
+  </g>
+</svg>

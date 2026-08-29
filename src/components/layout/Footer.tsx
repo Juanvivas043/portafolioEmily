@@ -113,7 +113,7 @@ export function Footer() {
 
           <p className="text-[13px] font-semibold text-muted">
             Desarrollado por{" "}
-            <span className="text-bone">juandev</span>
+            <span className="text-bone">Juandev</span>
           </p>
         </div>
       </div>

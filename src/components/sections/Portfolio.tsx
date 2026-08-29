@@ -16,14 +16,14 @@ export function Portfolio() {
 
   return (
     <section
-      id="portfolio"
+      id="portafolio"
       className="relative z-10 px-6 py-24 sm:px-10 lg:px-[72px] lg:py-32"
     >
       <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between lg:gap-16">
         <div className="flex flex-col gap-4">
           <p className="flex items-center gap-3 text-xs font-extrabold tracking-[0.18em] text-mist uppercase">
             <span aria-hidden className="h-0.5 w-6 bg-magenta" />
-            Portfolio
+            Portafolio
           </p>
           {/* Un solo h2: las líneas son spans para que cada una barra por su
               cuenta sin romper la jerarquía del documento. */}

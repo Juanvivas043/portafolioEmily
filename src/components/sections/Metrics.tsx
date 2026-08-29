@@ -1,5 +1,5 @@
 import { metrics } from "@/content/metrics";
-import { Parallax } from "@/components/motion/Parallax";
+import { Assemble } from "@/components/motion/Assemble";
 import { Reveal } from "@/components/motion/Reveal";
 import { Sticker } from "@/components/ui/Sticker";
 
@@ -152,19 +152,25 @@ export function Metrics() {
 
         {/* Las pegatinas se mueven bastante más que el dibujo, y en sentidos
             opuestos: es lo que separa los planos y hace visible la profundidad. */}
-        <Parallax
-          shift={12}
+        <Assemble
+          y={6}
+          x={-2.5}
+          rotate={-18}
+          scale={0.78}
           className="pointer-events-none absolute bottom-[6%] left-[13%]"
         >
           <Sticker variant="mancha" size={112} rotate={-9} />
-        </Parallax>
-        <Parallax
-          shift={10}
+        </Assemble>
+        <Assemble
+          y={5}
+          x={2.5}
+          rotate={16}
+          scale={0.8}
           reverse
           className="pointer-events-none absolute top-[14%] right-[6%]"
         >
           <Sticker variant="nube" fill="#FF7A3D" size={116} rotate={7} />
-        </Parallax>
+        </Assemble>
       </div>
 
       <div className="relative flex flex-col gap-8 px-6 py-16 sm:px-10 md:hidden">

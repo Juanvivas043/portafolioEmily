@@ -5,7 +5,7 @@ export type Project = {
   summary: string;
   /** Resultado destacado. PENDIENTE: cifra de relleno, sin confirmar. */
   result: { value: string; label: string };
-  /** Tamaño en la rejilla del portfolio. */
+  /** Tamaño en la rejilla del portafolio. */
   featured?: boolean;
   /** Tinte del marcador de imagen mientras no haya foto. */
   tint: "ember" | "violet" | "magenta" | "grape";
