@@ -1,17 +1,39 @@
-import { site } from "@/content/site";
+import { Footer } from "@/components/layout/Footer";
+import { Header } from "@/components/layout/Header";
+import { Marquee } from "@/components/motion/Marquee";
+import { RevealFallback } from "@/components/motion/RevealFallback";
+import { About } from "@/components/sections/About";
+import { ContactSection } from "@/components/sections/ContactSection";
+import { Hero } from "@/components/sections/Hero";
+import { Metrics } from "@/components/sections/Metrics";
+import { Portfolio } from "@/components/sections/Portfolio";
+import { Services } from "@/components/sections/Services";
+import { services } from "@/content/services";
 
 export default function Home() {
   return (
-    <main className="relative z-10 flex min-h-dvh flex-col justify-center gap-6 px-6 py-24 sm:px-12">
-      <p className="text-sm font-bold tracking-[0.18em] text-mist uppercase">
-        {site.roleLong}
-      </p>
-      <h1 className="font-display text-6xl leading-[0.96] uppercase sm:text-8xl">
-        {site.tagline}
-      </h1>
-      <p className="max-w-prose text-lg leading-relaxed text-mist">
-        {site.summary}
-      </p>
-    </main>
+    <>
+      <Header />
+
+      <main>
+        <Hero />
+
+        <div className="relative z-10 border-y border-bone/10 bg-[#120F18] py-5 font-display text-lg text-bone/70 uppercase">
+          <Marquee items={services.map((service) => service.title)} />
+        </div>
+
+        <About />
+        <Services />
+        <Metrics />
+        <Portfolio />
+        <ContactSection />
+      </main>
+
+      <Footer />
+
+      {/* Único trozo de cliente del sistema de animaciones, y solo actúa
+          donde el navegador no soporta las líneas de tiempo de scroll. */}
+      <RevealFallback />
+    </>
   );
 }
