@@ -36,8 +36,15 @@
     radial-gradient(96% 100% at 92% 18%, #a855f7 0%, rgba(168, 85, 247, 0) 56%),
     radial-gradient(110% 110% at 76% 96%, #ff1f7a 0%, rgba(255, 31, 122, 0) 60%),
     linear-gradient(152deg, #ff6b2c, #e01e6e 46%, #7c3aed);
-  /* Ruido generado con feTurbulence: cero peso de red frente a una textura PNG. */
-  --texture-grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.7'/%3E%3C/svg%3E");
+  /*
+   * Grano con feTurbulence: cero peso de red frente a una textura PNG.
+   *
+   * Monocromo (feColorMatrix a saturación 0) y de frecuencia alta con pocas
+   * octavas. El ruido en color y de baja frecuencia se apelmaza en manchas
+   * grises en cuanto se pinta en mezcla normal; así se lee como grano de
+   * película y no como suciedad.
+   */
+  --texture-grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.95' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)'/%3E%3C/svg%3E");
 
   /*
    * Polvo: motas claras dispersas, como las de la guía. Son degradados
@@ -90,30 +97,35 @@ section[id] {
 
 body {
   /*
-   * Las entradas laterales arrancan desplazadas casi 90px, así que durante la
+   * Las entradas laterales arrancan desplazadas 3rem, así que durante la
    * animación se salen por la derecha y aparecería una barra horizontal. Se
    * recorta con `clip` y no con `hidden` a propósito: `hidden` crearía un
-   * contenedor de scroll y dejaría inertes las líneas de tiempo de view().
+   * contenedor de scroll y dejaría inerte el parallax, que sí va atado a él.
    */
   overflow-x: clip;
 
   /* El negro plano se ve muerto: la guía tiene un tinte violáceo que sube por
-     el centro y se apaga en los bordes. */
+     el centro y se apaga en los bordes. Sin background-attachment: fixed, que
+     obliga al navegador a repintar el fondo en cada fotograma de scroll. */
   background-color: var(--color-void);
   background-image:
-    radial-gradient(120% 80% at 50% 0%, rgba(124, 58, 237, 0.09), transparent 60%),
-    radial-gradient(100% 70% at 12% 42%, rgba(255, 46, 136, 0.05), transparent 62%);
-  background-attachment: fixed;
+    radial-gradient(120% 60% at 50% 0%, rgba(124, 58, 237, 0.1), transparent 60%),
+    radial-gradient(90% 40% at 12% 30%, rgba(255, 46, 136, 0.06), transparent 62%);
+  background-repeat: no-repeat;
   color: var(--color-bone);
   font-family: var(--font-sans);
 }
 
 /*
- * Textura de fondo, en dos capas fijas para que el contenido pase por encima
- * de ella y el fondo se sienta como un material y no como un color.
+ * Textura de fondo, en dos capas fijas y sin mezcla.
  *
- * Van en pseudoelementos del body para no meter divs vacíos en el árbol, y
- * ambas quedan por debajo de cualquier contenido, que va en z-10.
+ * Sin mix-blend-mode a propósito: una capa fija a pantalla completa con mezcla
+ * obliga a recomponer todo el viewport en cada fotograma de scroll, y se
+ * notaba. Dos capas planas son baratas —el compositor solo las desplaza— y a
+ * estas opacidades el resultado es equivalente.
+ *
+ * El polvo lleva casi toda la carga visual; el grano va muy por debajo, solo
+ * para que las superficies no queden lisas.
  */
 body::before {
   content: "";
@@ -123,6 +135,7 @@ body::before {
   pointer-events: none;
   background-image: var(--texture-dust);
   background-size: 400px 400px;
+  opacity: 0.9;
 }
 
 body::after {
@@ -131,11 +144,19 @@ body::after {
   inset: 0;
   z-index: 0;
   pointer-events: none;
-  opacity: 0.42;
-  mix-blend-mode: overlay;
   background-image: var(--texture-grain);
+  background-size: 120px 120px;
+  opacity: 0.05;
 }
 
+/*
+ * Grano sobre una superficie concreta.
+ *
+ * Sin mix-blend-mode, y no por gusto: hay decenas de elementos con esta clase
+ * y cada capa con mezcla obliga a recomponerla contra lo que tiene debajo en
+ * cada fotograma de scroll. A opacidad baja sobre superficies oscuras el
+ * resultado es prácticamente el mismo y el scroll no lo paga.
+ */
 @utility grain {
   position: relative;
 
@@ -145,9 +166,9 @@ body::after {
     inset: 0;
     border-radius: inherit;
     pointer-events: none;
-    opacity: 0.34;
-    mix-blend-mode: overlay;
+    opacity: 0.06;
     background-image: var(--texture-grain);
+    background-size: 120px 120px;
   }
 }
 
@@ -175,115 +196,6 @@ body::after {
   .gradient-text {
     background: none;
     color: var(--color-magenta);
-  }
-}
-
-/* ---------------------------------------------------------------------------
-   Movimiento
-   Las animaciones de scroll usan `animation-timeline` nativo cuando existe, que
-   corre en el compositor. El fallback por IntersectionObserver marca
-   [data-revealed] y solo se activa donde no hay soporte.
---------------------------------------------------------------------------- */
-@keyframes reveal-up {
-  from {
-    opacity: 0;
-    transform: translateY(5rem);
-    filter: blur(6px);
-  }
-  to {
-    opacity: 1;
-    transform: none;
-    filter: blur(0);
-  }
-}
-
-@keyframes reveal-fade {
-  from {
-    opacity: 0;
-    filter: blur(5px);
-  }
-  to {
-    opacity: 1;
-    filter: blur(0);
-  }
-}
-
-@keyframes reveal-left {
-  from {
-    opacity: 0;
-    transform: translateX(-5.5rem);
-    filter: blur(6px);
-  }
-  to {
-    opacity: 1;
-    transform: none;
-    filter: blur(0);
-  }
-}
-
-@keyframes reveal-right {
-  from {
-    opacity: 0;
-    transform: translateX(5.5rem);
-    filter: blur(6px);
-  }
-  to {
-    opacity: 1;
-    transform: none;
-    filter: blur(0);
-  }
-}
-
-@keyframes reveal-scale {
-  from {
-    opacity: 0;
-    transform: scale(0.84) translateY(2.5rem);
-    filter: blur(7px);
-  }
-  to {
-    opacity: 1;
-    transform: none;
-    filter: blur(0);
-  }
-}
-
-/* Entrada con un ligero giro, para las piezas del collage de «Sobre mí». */
-@keyframes reveal-tilt {
-  from {
-    opacity: 0;
-    transform: translateY(4rem) rotate(var(--reveal-tilt, -4deg)) scale(0.94);
-    filter: blur(6px);
-  }
-  to {
-    opacity: 1;
-    transform: none;
-    filter: blur(0);
-  }
-}
-
-/*
- * Barrido de máscara: el texto sube desde detrás de su propia caja. Es el
- * recurso que mejor se lee como «esto se está montando», y por eso va en los
- * titulares. El -30% final evita que se coman las colas de las letras.
- */
-@keyframes reveal-clip {
-  from {
-    clip-path: inset(105% 0 -30% 0);
-    transform: translateY(0.9em);
-  }
-  to {
-    clip-path: inset(-30% 0 -30% 0);
-    transform: none;
-  }
-}
-
-/* Reglas y filetes que se dibujan de izquierda a derecha. */
-@keyframes reveal-draw {
-  from {
-    transform: scaleX(0);
-  }
-  to {
-    transform: scaleX(1);
   }
 }
 
@@ -378,39 +290,94 @@ body::after {
 }
 
 /*
- * El tramo va de que el elemento asoma por abajo hasta casi la mitad de su
- * paso por pantalla. Cuanto más largo, más se percibe que la página se está
- * montando conforme bajas, en vez de aparecer de golpe.
+ * Entradas: se disparan al asomar el elemento y corren en SU PROPIO RELOJ.
+ *
+ * Antes iban atadas al scroll con animation-timeline. Eso suena bien pero se
+ * ve a tirones: la rueda del ratón avanza a saltos de ~100px, así que la
+ * animación salta con ella, y si paras a media entrada el elemento se queda
+ * congelado a medias. Con una transición normal, disparada una vez por
+ * <RevealObserver />, el movimiento siempre sale continuo y siempre termina.
+ *
+ * Solo se animan opacidad y transform, que van en el compositor.
  */
 [data-reveal] {
-  animation: reveal-up linear both;
-  animation-timeline: view();
-  animation-range: entry 0% cover 46%;
+  opacity: 0;
+  transform: translateY(2.75rem);
+  transition:
+    opacity 0.7s var(--ease-out-soft) var(--reveal-delay, 0s),
+    transform 0.7s var(--ease-out-soft) var(--reveal-delay, 0s);
 }
 
 [data-reveal="fade"] {
-  animation-name: reveal-fade;
+  transform: none;
 }
 [data-reveal="left"] {
-  animation-name: reveal-left;
+  transform: translateX(-3rem);
 }
 [data-reveal="right"] {
-  animation-name: reveal-right;
+  transform: translateX(3rem);
 }
 [data-reveal="scale"] {
-  animation-name: reveal-scale;
+  transform: scale(0.92) translateY(1.25rem);
 }
 [data-reveal="tilt"] {
-  animation-name: reveal-tilt;
+  transform: translateY(2.25rem) rotate(var(--reveal-tilt, -4deg));
 }
+
+/*
+ * Barrido de máscara: la caja de fuera recorta y el hijo sube desde abajo.
+ *
+ * La máscara NO puede ir en el propio elemento observado: clip-path a cero lo
+ * deja con área nula y IntersectionObserver no ve lo que no tiene área, así
+ * que jamás se dispararía. El relleno inferior con margen negativo que lo
+ * compensa está para que el recorte no se coma las colas de las letras.
+ */
 [data-reveal="clip"] {
-  animation-name: reveal-clip;
-  animation-range: entry 0% cover 38%;
+  display: block;
+  overflow: clip;
+  opacity: 1;
+  transform: none;
+  padding-bottom: 0.16em;
+  margin-bottom: -0.16em;
 }
+
+[data-reveal="clip"] > [data-reveal-inner] {
+  display: block;
+  transform: translateY(110%);
+  transition: transform 0.8s var(--ease-out-soft) var(--reveal-delay, 0s);
+}
+
+/* Mismo motivo: scaleX(0) también deja área nula. */
 [data-reveal="draw"] {
-  animation-name: reveal-draw;
-  animation-range: entry 5% cover 34%;
+  opacity: 1;
+  transform: none;
+}
+
+[data-reveal="draw"] > [data-reveal-inner] {
+  display: block;
+  height: 100%;
+  transform: scaleX(0);
   transform-origin: 0 50%;
+  transition: transform 0.6s var(--ease-out-soft) var(--reveal-delay, 0s);
+}
+
+[data-reveal][data-visible="true"] {
+  opacity: 1;
+  transform: none;
+}
+
+[data-reveal][data-visible="true"] > [data-reveal-inner] {
+  transform: none;
+}
+
+/* Sin JavaScript nadie marcaría data-visible y la página se quedaría en
+   blanco. Esto la deja visible de entrada. */
+@media (scripting: none) {
+  [data-reveal],
+  [data-reveal] > [data-reveal-inner] {
+    opacity: 1;
+    transform: none;
+  }
 }
 
 /*
@@ -430,56 +397,14 @@ body::after {
 }
 
 /*
- * Donde no hay línea de tiempo de scroll, <RevealFallback /> marca
+ * Donde no hay línea de tiempo de scroll, el respaldo marca
  * [data-visible] y aquí solo queda una transición. El retardo únicamente aplica
  * en esta rama: con `animation-timeline` el avance lo manda el scroll, no el
  * reloj, y animation-delay se ignora.
  */
+/* El parallax sí sigue atado al scroll, que es justo lo que es. Donde no hay
+   línea de tiempo, el elemento se queda quieto y ya está. */
 @supports not (animation-timeline: view()) {
-  [data-reveal] {
-    animation: none;
-    opacity: 0;
-    transform: translateY(2.5rem);
-    transition:
-      opacity 0.75s var(--ease-out-soft) var(--reveal-delay, 0s),
-      transform 0.75s var(--ease-out-soft) var(--reveal-delay, 0s);
-  }
-
-  [data-reveal="fade"] {
-    transform: none;
-  }
-  [data-reveal="left"] {
-    transform: translateX(-5.5rem);
-  }
-  [data-reveal="right"] {
-    transform: translateX(5.5rem);
-  }
-  [data-reveal="scale"] {
-    transform: scale(0.84) translateY(2.5rem);
-  }
-  [data-reveal="tilt"] {
-    transform: translateY(4rem) rotate(var(--reveal-tilt, -4deg)) scale(0.94);
-  }
-  [data-reveal="clip"] {
-    opacity: 1;
-    clip-path: inset(105% 0 -30% 0);
-    transform: translateY(0.9em);
-    transition:
-      clip-path 0.85s var(--ease-out-soft) var(--reveal-delay, 0s),
-      transform 0.85s var(--ease-out-soft) var(--reveal-delay, 0s);
-  }
-  [data-reveal="draw"] {
-    opacity: 1;
-    transform: scaleX(0);
-    transform-origin: 0 50%;
-  }
-
-  [data-reveal][data-visible="true"] {
-    opacity: 1;
-    transform: none;
-    clip-path: inset(-30% 0 -30% 0);
-  }
-
   [data-parallax] {
     animation: none;
   }
@@ -517,10 +442,9 @@ body::after {
 
   /* Sin esto el contenido se quedaría invisible o recortado en la rama de
      respaldo, que parte de opacidad cero y máscara cerrada. */
-  [data-reveal] {
+  [data-reveal],
+  [data-reveal] > [data-reveal-inner] {
     opacity: 1 !important;
     transform: none !important;
-    clip-path: none !important;
-    filter: none !important;
   }
 }

@@ -1,5 +1,5 @@
 type PortraitPlaceholderProps = {
-  /** Pie visible sobre el hueco, entre corchetes hasta tener la foto. */
+  /** Etiqueta opcional sobre el hueco. Sin ella, solo se ve la ilustración. */
   caption?: string;
   className?: string;
 };
@@ -13,7 +13,7 @@ type PortraitPlaceholderProps = {
  * <Image /> y no cambia nada más.
  */
 export function PortraitPlaceholder({
-  caption = "[ Retrato ]",
+  caption,
   className,
 }: PortraitPlaceholderProps) {
   return (
@@ -48,9 +48,11 @@ export function PortraitPlaceholder({
         <ellipse cx="150" cy="148" rx="65" ry="70" fill="url(#retrato-figura)" />
       </svg>
 
-      <span className="absolute bottom-4 left-4 rounded-full bg-void/80 px-3.5 py-1.5 text-[11px] font-extrabold tracking-[0.12em] text-mist uppercase">
-        {caption}
-      </span>
+      {caption && (
+        <span className="absolute bottom-4 left-4 rounded-full bg-void/80 px-3.5 py-1.5 text-[11px] font-extrabold tracking-[0.12em] text-mist uppercase">
+          {caption}
+        </span>
+      )}
     </div>
   );
 }

@@ -18,7 +18,7 @@ export type Metric = {
 export const metrics: Metric[] = [
   {
     id: "cuentas",
-    value: "[40]+",
+    value: "40+",
     label: "cuentas gestionadas",
     note: "las que me sé de memoria",
     point: { x: 200, y: 404 },
@@ -26,7 +26,7 @@ export const metrics: Metric[] = [
   },
   {
     id: "roas",
-    value: "[3,2]x",
+    value: "3,2x",
     label: "ROAS medio",
     note: "el número que defiendo en cada cierre",
     point: { x: 520, y: 344 },
@@ -34,7 +34,7 @@ export const metrics: Metric[] = [
   },
   {
     id: "anos",
-    value: "[6]",
+    value: "6",
     label: "años en marketing",
     note: "de becaria a ejecutiva",
     point: { x: 860, y: 258 },
@@ -42,7 +42,7 @@ export const metrics: Metric[] = [
   },
   {
     id: "alcance",
-    value: "[180]%",
+    value: "180%",
     label: "crecimiento de alcance",
     note: "lo que más me costó y lo que más me gusta contar",
     point: { x: 1245, y: 148 },

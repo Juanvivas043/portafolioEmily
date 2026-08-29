@@ -1,6 +1,5 @@
 import Link from "next/link";
 import { Parallax } from "@/components/motion/Parallax";
-import { ArrowUpRight } from "lucide-react";
 
 import { Reveal } from "@/components/motion/Reveal";
 import { projects } from "@/content/projects";
@@ -38,8 +37,8 @@ export function Portfolio() {
           </h2>
         </div>
         <p className="max-w-[34ch] text-base leading-relaxed text-mist lg:text-right text-pretty">
-          Las marcas y los números van entre corchetes hasta que me confirmes
-          qué puedo publicar.
+          Cinco encargos contados por lo que había que resolver, no por lo
+          bonito que quedó.
         </p>
       </div>
 
@@ -55,7 +54,7 @@ export function Portfolio() {
               aria-hidden
               className="relative block h-56 w-full overflow-clip lg:h-64"
             >
-              <Parallax shift={18} className="absolute inset-0 m-[-14%]">
+              <Parallax shift={10} className="absolute inset-0 m-[-14%]">
                 <span
                   className="block h-full w-full"
                   style={{ backgroundImage: TINT[featured.tint] }}
@@ -99,7 +98,7 @@ export function Portfolio() {
             >
               <span aria-hidden className="relative block h-44 w-full overflow-clip">
                 <Parallax
-                  shift={16}
+                  shift={9}
                   reverse={index % 2 === 1}
                   className="absolute inset-0 m-[-14%]"
                 >
@@ -130,25 +129,6 @@ export function Portfolio() {
           </Reveal>
         ))}
 
-        <li className="lg:col-span-6">
-          <div className="grain flex flex-col gap-5 rounded-[28px] border border-magenta/25 bg-[linear-gradient(120deg,#16121C_0%,#1E1926_60%,#2A1530_100%)] p-7 sm:flex-row sm:items-center sm:justify-between sm:p-8">
-            <div className="flex flex-col gap-2">
-              <h3 className="font-display text-2xl uppercase sm:text-[28px]">
-                ¿Te suena tu caso en alguno de estos?
-              </h3>
-              <p className="text-[14.5px] text-mist">
-                Cuéntame qué tienes entre manos y te digo por dónde empezaría.
-              </p>
-            </div>
-            <a
-              href="#contacto"
-              className="inline-flex w-fit shrink-0 items-center gap-2.5 rounded-full bg-[image:var(--gradient-signature)] px-7 py-4 text-[15px] font-extrabold text-void transition-transform hover:-translate-y-0.5"
-            >
-              Escríbeme
-              <ArrowUpRight size={16} strokeWidth={2.6} />
-            </a>
-          </div>
-        </li>
       </ul>
     </section>
   );

@@ -1,7 +1,6 @@
 import type { CSSProperties } from "react";
 import { ArrowUpRight } from "lucide-react";
 
-import { Parallax } from "@/components/motion/Parallax";
 import { Reveal } from "@/components/motion/Reveal";
 import { services } from "@/content/services";
 
@@ -35,12 +34,11 @@ export function Services() {
         <div className="flex flex-col gap-4">
           <Reveal variant="fade">
             <p className="flex items-center gap-3 text-xs font-extrabold tracking-[0.18em] text-mist uppercase">
-              <Reveal
-                variant="draw"
-                as="span"
-                className="h-0.5 w-6 bg-magenta"
-                aria-hidden
-              />
+              {/* El color va en el hijo: si lo lleva la caja de fuera, el
+                  filete se ve entero antes de dibujarse. */}
+              <Reveal variant="draw" as="span" className="block h-0.5 w-6" aria-hidden>
+                <span className="block h-full w-full bg-magenta" />
+              </Reveal>
               Servicios
             </p>
           </Reveal>
@@ -77,7 +75,7 @@ export function Services() {
               style={{ "--stack-index": index } as CSSProperties}
             >
               <article
-                className={`grain relative flex min-h-[clamp(19rem,50vh,26rem)] flex-col overflow-clip rounded-[32px] border ${accent.ring} bg-surface shadow-[0_-18px_50px_-20px_rgba(0,0,0,0.9)] lg:flex-row`}
+                className={`grain relative flex min-h-[clamp(19rem,50vh,26rem)] flex-col overflow-clip rounded-[32px] border ${accent.ring} bg-surface shadow-[0_-6px_16px_-10px_rgba(0,0,0,0.85)] lg:flex-row`}
               >
                 <div className="flex flex-1 flex-col justify-between gap-8 p-7 sm:p-10">
                   <div className="flex flex-col gap-5">
@@ -108,21 +106,18 @@ export function Services() {
                   </ul>
                 </div>
 
-                <div className="relative w-full overflow-clip lg:w-[38%]">
-                  {/* El número gigante se mueve más despacio que la tarjeta:
-                      es donde mejor se aprecia el parallax de la sección. */}
-                  <Parallax
-                    shift={14}
-                    reverse={index % 2 === 1}
-                    className={`absolute inset-0 m-[-10%] bg-linear-to-br ${accent.panel}`}
+                {/* Panel fijo, sin parallax. Seis transformaciones atadas al
+                    scroll dentro de tarjetas pegajosas era justo lo que hacía
+                    que la pila fuese a tirones. */}
+                <div
+                  className={`relative grid w-full place-items-center overflow-clip bg-linear-to-br ${accent.panel} lg:w-[38%]`}
+                >
+                  <span
+                    aria-hidden
+                    className="font-display text-[clamp(6rem,16vw,11rem)] leading-none text-void/25"
                   >
-                    <span
-                      aria-hidden
-                      className="grid h-full w-full place-items-center font-display text-[clamp(6rem,16vw,11rem)] leading-none text-void/25"
-                    >
-                      {service.number}
-                    </span>
-                  </Parallax>
+                    {service.number}
+                  </span>
                 </div>
               </article>
             </li>

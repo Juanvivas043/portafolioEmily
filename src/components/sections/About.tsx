@@ -22,7 +22,7 @@ export function About() {
       </span>
 
       <div className="grid gap-10 lg:grid-cols-[minmax(0,1.45fr)_minmax(0,1fr)] lg:items-start lg:gap-14">
-        <Parallax shift={7} className="lg:-rotate-[1.6deg]">
+        <Parallax shift={6} className="lg:-rotate-[1.6deg]">
           <Reveal variant="tilt" tilt={-3}>
           <article className="grain relative rounded-sm bg-[linear-gradient(172deg,#F7EEDC,#F1E6CF)] px-7 py-9 shadow-[0_36px_74px_-20px_rgba(0,0,0,0.86)] sm:px-12 sm:py-11">
             <div className="flex items-center gap-3">
@@ -97,22 +97,19 @@ export function About() {
         </Parallax>
 
         <div className="flex flex-col gap-8">
-          <Parallax shift={17} className="lg:rotate-[4.5deg]">
+          <Parallax shift={8} className="lg:rotate-[4.5deg]">
             <Reveal variant="tilt" tilt={5} delay={0.08}>
             <figure className="bg-[linear-gradient(168deg,#F3EAD8,#E7DCC6)] p-4 shadow-[0_38px_72px_-22px_rgba(0,0,0,0.9)]">
-              <PortraitPlaceholder
-                caption="[ Retrato ]"
-                className="aspect-4/5 w-full"
-              />
+              <PortraitPlaceholder className="aspect-4/5 w-full" />
               <figcaption className="px-1 pt-3 text-[15px] font-medium text-[#2A2333] italic">
-                [ Retrato ]
+                Emily, en su sitio favorito para pensar
               </figcaption>
             </figure>
           </Reveal>
           </Parallax>
 
           <div className="flex flex-col gap-8 sm:flex-row sm:items-start lg:flex-col">
-            <Parallax shift={11} reverse className="lg:-rotate-[5deg]">
+            <Parallax shift={8} reverse className="lg:-rotate-[5deg]">
               <Reveal variant="tilt" tilt={-6} delay={0.14}>
               <aside className="flex flex-col gap-3 bg-[linear-gradient(158deg,#FFC24A,#FF8A3D_62%,#FF7A3D)] p-6 shadow-[0_24px_44px_-16px_rgba(0,0,0,0.82)] sm:max-w-[13rem]">
                 <span className="text-xs font-extrabold tracking-[0.18em] text-[#3A1408] uppercase">
@@ -125,7 +122,7 @@ export function About() {
             </Reveal>
             </Parallax>
 
-            <Parallax shift={14} className="lg:rotate-[3.2deg]">
+            <Parallax shift={9} className="lg:rotate-[3.2deg]">
               <Reveal variant="tilt" tilt={4} delay={0.2}>
               <aside className="flex flex-col gap-2.5 bg-[linear-gradient(172deg,#F8F3E5,#EAE3D0)] px-5 py-4 shadow-[0_20px_38px_-18px_rgba(0,0,0,0.86)] sm:max-w-[19rem]">
                 <span className="text-xs font-extrabold tracking-[0.15em] text-[#3B3348] uppercase">
@@ -134,9 +131,9 @@ export function About() {
 
                 <dl className="flex flex-col gap-1.5">
                   {[
-                    { label: "años en esto", value: "[6]", accent: false },
-                    { label: "cuentas llevadas", value: "[40]+", accent: true },
-                    { label: "ROAS medio", value: "[3,2]x", accent: false },
+                    { label: "años en esto", value: "6", accent: false },
+                    { label: "cuentas llevadas", value: "40+", accent: true },
+                    { label: "ROAS medio", value: "3,2x", accent: false },
                   ].map((row) => (
                     <div key={row.label} className="flex items-baseline gap-2.5">
                       <dt className="text-xs font-semibold text-[#463C57]">

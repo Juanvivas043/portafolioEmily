@@ -38,7 +38,7 @@ export const services: Service[] = [
     number: "04",
     title: "Campañas de pago",
     description:
-      "Segmentación, reparto de presupuesto y ajuste semanal en [las plataformas que uses].",
+      "Segmentación, reparto de presupuesto y ajuste semanal en Meta y Google.",
     tags: ["Segmentación", "Presupuesto", "Optimización"],
   },
   {

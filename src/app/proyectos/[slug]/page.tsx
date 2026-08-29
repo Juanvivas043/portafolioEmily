@@ -4,7 +4,7 @@ import { notFound } from "next/navigation";
 import { ArrowLeft, Check } from "lucide-react";
 
 import { Footer } from "@/components/layout/Footer";
-import { RevealFallback } from "@/components/motion/RevealFallback";
+import { RevealObserver } from "@/components/motion/RevealObserver";
 import { ContactForm } from "@/components/form/ContactForm";
 import { getProject, projects } from "@/content/projects";
 
@@ -153,7 +153,7 @@ export default async function ProjectPage({
       </main>
 
       <Footer />
-      <RevealFallback />
+      <RevealObserver />
     </>
   );
 }

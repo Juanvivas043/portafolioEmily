@@ -3,7 +3,7 @@ export type Project = {
   title: string;
   category: string;
   summary: string;
-  /** Resultado destacado. Va entre corchetes hasta tener el dato real. */
+  /** Resultado destacado. PENDIENTE: cifra de relleno, sin confirmar. */
   result: { value: string; label: string };
   /** Tamaño en la rejilla del portfolio. */
   featured?: boolean;
@@ -21,37 +21,37 @@ export type Project = {
 export const projects: Project[] = [
   {
     slug: "marca-de-retail",
-    title: "[Marca de retail]",
+    title: "Cadena de retail",
     category: "Campaña 360",
     summary:
-      "Lanzamiento de temporada: estrategia, contenido y pauta coordinados en [seis] semanas.",
-    result: { value: "[+62]%", label: "ventas online" },
+      "Lanzamiento de temporada: estrategia, contenido y pauta coordinados en seis semanas.",
+    result: { value: "+62%", label: "ventas online" },
     featured: true,
     tint: "magenta",
     detail: {
       challenge:
-        "La marca lanzaba temporada con [X] referencias nuevas y tres equipos trabajando por separado: tienda, redes y medios. Cada uno tenía su calendario.",
+        "La marca lanzaba temporada con 40 referencias nuevas y tres equipos trabajando por separado: tienda, redes y medios. Cada uno tenía su calendario.",
       approach: [
         "Un único brief con objetivo, público, mensaje y fechas para los tres equipos.",
         "Calendario común de piezas, con quién produce cada una y cuándo entra.",
-        "Pauta arrancando [dos] semanas antes del lanzamiento para calentar audiencia.",
-        "Punto de control semanal de [30] minutos para reasignar presupuesto.",
+        "Pauta arrancando dos semanas antes del lanzamiento para calentar audiencia.",
+        "Punto de control semanal de 30 minutos para reasignar presupuesto.",
       ],
       deliverables: [
         "Brief maestro de campaña",
-        "Calendario de contenido de [X] piezas",
+        "Calendario de contenido de 24 piezas",
         "Plan de medios con reparto por canal",
         "Informe de cierre con aprendizajes",
       ],
-      period: "[mes] – [mes] de [año]",
+      period: "Marzo – mayo de 2025",
     },
   },
   {
     slug: "marca-de-belleza",
-    title: "[Marca de belleza]",
+    title: "Marca de belleza",
     category: "Contenido",
-    summary: "Serie de vídeo vertical, [X] piezas al mes de principio a fin.",
-    result: { value: "[+180]%", label: "alcance" },
+    summary: "Serie de vídeo vertical, 12 piezas al mes de principio a fin.",
+    result: { value: "+180%", label: "alcance" },
     tint: "violet",
     detail: {
       challenge:
@@ -63,18 +63,18 @@ export const projects: Project[] = [
       ],
       deliverables: [
         "Guía de pilares y formatos",
-        "[X] piezas de vídeo vertical al mes",
+        "12 piezas de vídeo vertical al mes",
         "Calendario editorial mensual",
       ],
-      period: "[mes] de [año] – hoy",
+      period: "Enero de 2025 – hoy",
     },
   },
   {
     slug: "servicio-b2b",
-    title: "[Servicio B2B]",
+    title: "Servicio B2B",
     category: "Paid media",
-    summary: "Captación de leads con [presupuesto] mensual y coste por lead a la baja.",
-    result: { value: "[-38]%", label: "coste por lead" },
+    summary: "Captación de leads con presupuesto mensual y coste por lead a la baja.",
+    result: { value: "-38%", label: "coste por lead" },
     tint: "ember",
     detail: {
       challenge:
@@ -82,18 +82,18 @@ export const projects: Project[] = [
       approach: [
         "Trazabilidad del lead desde el anuncio hasta el cierre.",
         "Corte de las campañas que traían volumen pero no conversión.",
-        "Concentración del presupuesto en los [dos] públicos que sí cerraban.",
+        "Concentración del presupuesto en los dos públicos que sí cerraban.",
       ],
       deliverables: ["Estructura de campañas", "Panel de seguimiento", "Informe mensual"],
-      period: "[mes] – [mes] de [año]",
+      period: "Marzo – mayo de 2025",
     },
   },
   {
     slug: "marca-de-bebidas",
-    title: "[Marca de bebidas]",
+    title: "Marca de bebidas",
     category: "Creadores",
-    summary: "[X] colaboraciones para el lanzamiento, de la selección al pago.",
-    result: { value: "[X]", label: "creadores activados" },
+    summary: "8 colaboraciones para el lanzamiento, de la selección al pago.",
+    result: { value: "8", label: "creadores activados" },
     tint: "grape",
     detail: {
       challenge:
@@ -104,15 +104,15 @@ export const projects: Project[] = [
         "Seguimiento de resultados por creador para decidir a quién repetir.",
       ],
       deliverables: ["Lista corta de creadores", "Brief por creador", "Informe por colaboración"],
-      period: "[mes] de [año]",
+      period: "Septiembre de 2024",
     },
   },
   {
     slug: "grupo-hotelero",
-    title: "[Grupo hotelero]",
+    title: "Grupo hotelero",
     category: "Reporting",
-    summary: "Informe mensual para [X] establecimientos, con una sola lectura común.",
-    result: { value: "[X]", label: "establecimientos" },
+    summary: "Informe mensual para 6 establecimientos, con una sola lectura común.",
+    result: { value: "6", label: "establecimientos" },
     tint: "violet",
     detail: {
       challenge:
@@ -123,7 +123,7 @@ export const projects: Project[] = [
         "Una recomendación concreta por establecimiento cada mes.",
       ],
       deliverables: ["Plantilla de informe", "Resumen mensual del grupo", "Sesión de revisión"],
-      period: "[mes] de [año] – hoy",
+      period: "Enero de 2025 – hoy",
     },
   },
 ];

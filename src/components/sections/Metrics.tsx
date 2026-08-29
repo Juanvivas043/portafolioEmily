@@ -153,13 +153,13 @@ export function Metrics() {
         {/* Las pegatinas se mueven bastante más que el dibujo, y en sentidos
             opuestos: es lo que separa los planos y hace visible la profundidad. */}
         <Parallax
-          shift={26}
+          shift={12}
           className="pointer-events-none absolute bottom-[6%] left-[13%]"
         >
           <Sticker variant="mancha" size={112} rotate={-9} />
         </Parallax>
         <Parallax
-          shift={22}
+          shift={10}
           reverse
           className="pointer-events-none absolute top-[14%] right-[6%]"
         >

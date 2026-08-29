@@ -29,9 +29,9 @@ type RevealProps = {
 /**
  * Aparición al entrar en pantalla.
  *
- * No lleva JavaScript: la animación la conduce `animation-timeline: view()` en
- * globals.css, que corre en el compositor. Donde el navegador no lo soporta
- * entra <RevealFallback />, que es el único trozo de cliente de todo esto.
+ * La animación es una transición normal y no va atada al scroll:
+ * <RevealObserver /> la dispara al asomar el elemento y corre en su propio
+ * reloj, así que sale suave aunque el scroll vaya a tirones.
  */
 export function Reveal({
   children,
@@ -42,6 +42,14 @@ export function Reveal({
   className,
   ...rest
 }: RevealProps) {
+  /*
+   * «clip» y «draw» esconden con clip-path a cero y scaleX(0), que dejan al
+   * elemento con área nula — y IntersectionObserver no ve lo que no tiene
+   * área, así que nunca se revelarían. Por eso el elemento observado conserva
+   * su tamaño y lo que se mueve es un hijo.
+   */
+  const necesitaInterior = variant === "clip" || variant === "draw";
+
   return (
     <Tag
       {...rest}
@@ -54,7 +62,7 @@ export function Reveal({
         } as CSSProperties
       }
     >
-      {children}
+      {necesitaInterior ? <span data-reveal-inner="">{children}</span> : children}
     </Tag>
   );
 }

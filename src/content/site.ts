@@ -1,10 +1,13 @@
 /**
  * Datos de identidad y contacto del sitio.
  *
- * Todo lo que va entre corchetes es un hueco pendiente de los datos reales de
- * Emily. Al sustituirlos, quita también los corchetes. Este archivo es el único
- * sitio donde vive esta información: ni los componentes ni las secciones la
- * repiten.
+ * ⚠️ PENDIENTE DE DATOS REALES
+ * Los valores de abajo son de relleno: se ven como definitivos en la web, pero
+ * NINGUNO está confirmado por Emily. Antes de publicar hay que sustituir el
+ * correo, el teléfono, la ciudad, el horario y los usuarios de redes.
+ *
+ * Este archivo es el único sitio donde vive esta información: ni los
+ * componentes ni las secciones la repiten.
  */
 
 export type SocialLink = {
@@ -19,7 +22,7 @@ export type SocialLink = {
 export const site = {
   name: "Emily",
   /** Apellido u ocupación larga para el pie y los metadatos. */
-  fullName: "Emily [apellido]",
+  fullName: "Emily",
   role: "Ejecutiva de cuentas",
   roleLong: "Ejecutiva de cuentas y creadora de contenido",
   tagline: "Del brief al post que funciona",
@@ -27,15 +30,15 @@ export const site = {
   summary:
     "Llevo la cuenta, escribo el brief y produzco el contenido. Un solo interlocutor entre tu marca y el equipo creativo.",
 
-  email: "[correo]",
-  phone: "[teléfono]",
-  location: "[ciudad]",
-  /** Se muestra junto a la ubicación: «[ciudad] · disponible en remoto». */
+  email: "hola@emily.com",
+  phone: "+34 600 123 456",
+  location: "Madrid",
+  /** Se muestra junto a la ubicación: «Madrid · disponible en remoto». */
   availability: "disponible en remoto",
   /** Aparece en el formulario y en la sección de contacto. */
-  responseTime: "[24 h]",
-  workingHours: "[9:00 – 18:00]",
-  workingDays: "[lunes a viernes]",
+  responseTime: "24 h",
+  workingHours: "9:00 – 18:00",
+  workingDays: "Lunes a viernes",
 
   /**
    * Se usa en canonical, sitemap y Open Graph. Tiene que ser una URL válida
@@ -47,7 +50,7 @@ export const site = {
 } as const;
 
 export const socials: SocialLink[] = [
-  { id: "instagram", label: "Instagram", handle: "[@usuario]", href: "https://instagram.com/[usuario]" },
-  { id: "linkedin", label: "LinkedIn", handle: "[usuario]", href: "https://linkedin.com/in/[usuario]" },
-  { id: "tiktok", label: "TikTok", handle: "[@usuario]", href: "https://tiktok.com/@[usuario]" },
+  { id: "instagram", label: "Instagram", handle: "@emily", href: "https://instagram.com/emily" },
+  { id: "linkedin", label: "LinkedIn", handle: "emily", href: "https://linkedin.com/in/emily" },
+  { id: "tiktok", label: "TikTok", handle: "@emily", href: "https://tiktok.com/@emily" },
 ];

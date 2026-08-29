@@ -46,7 +46,7 @@ export function Hero() {
       </h1>
 
       <div className="mt-6 grid gap-6 lg:grid-cols-[16rem_minmax(0,1fr)] lg:items-start lg:gap-12">
-        <Parallax shift={16} className="hidden lg:block">
+        <Parallax shift={10} className="hidden lg:block">
           <PortraitPlaceholder className="h-[clamp(11rem,26vh,19rem)] rounded-[28px]" />
         </Parallax>
 
@@ -111,7 +111,7 @@ export function Hero() {
       {/* Anclada a la sección, no a la columna de texto: así queda en el hueco
           libre de la derecha y no se le echa encima al pie del hero. */}
       <Parallax
-        shift={20}
+        shift={14}
         reverse
         className="pointer-events-none absolute right-10 bottom-32 hidden xl:block"
       >
