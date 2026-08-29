@@ -53,9 +53,12 @@ export function Services() {
                 onFocus={() => setActiveId(service.id)}
                 onClick={() => setActiveId(service.id)}
                 aria-expanded={isActive}
-                className={`grain w-full cursor-pointer text-left transition-colors ${
+                // El grano solo va en la fila abierta: sobre el fondo
+                // transparente de las cerradas, la mezcla overlay se vería como
+                // una banda gris.
+                className={`w-full cursor-pointer text-left transition-colors ${
                   isActive
-                    ? "rounded-[26px] border border-magenta/30 bg-surface p-6 sm:p-8"
+                    ? "grain rounded-[26px] border border-magenta/30 bg-surface p-6 sm:p-8"
                     : "border-t border-bone/10 px-0 py-6"
                 }`}
               >

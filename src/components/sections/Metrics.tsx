@@ -153,14 +153,14 @@ export function Metrics() {
           variant="mancha"
           size={112}
           rotate={-9}
-          className="pointer-events-none absolute bottom-[12%] left-[22%]"
+          className="pointer-events-none absolute bottom-[6%] left-[13%]"
         />
         <Sticker
           variant="nube"
           fill="#FF7A3D"
           size={116}
           rotate={7}
-          className="pointer-events-none absolute top-[6%] right-[18%]"
+          className="pointer-events-none absolute top-[14%] right-[6%]"
         />
       </div>
 

@@ -42,6 +42,17 @@
   color-scheme: dark;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
+/* Sin esto, al saltar por un ancla la sección queda debajo de la cabecera fija
+   y se pierde su primera franja. 86px es justo la altura de la cabecera. */
+:target,
+section[id] {
+  scroll-margin-top: 86px;
+}
+
 body {
   background: var(--color-void);
   color: var(--color-bone);

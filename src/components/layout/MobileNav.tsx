@@ -3,6 +3,8 @@
 import { useEffect, useRef } from "react";
 import { ArrowUpRight, X } from "lucide-react";
 
+import { SocialIcon } from "@/components/ui/SocialIcon";
+
 import { navItems } from "@/content/nav";
 import { site, socials } from "@/content/site";
 import { useLockBodyScroll } from "@/hooks/useLockBodyScroll";
@@ -145,9 +147,10 @@ export function MobileNav({ state, activeId, onClose, onExited }: MobileNavProps
                   href={social.href}
                   target="_blank"
                   rel="noreferrer noopener"
-                  className="grid size-12 place-items-center rounded-2xl bg-raised text-xs font-bold text-bone"
+                  aria-label={social.label}
+                  className="grid size-12 place-items-center rounded-2xl bg-raised text-bone transition-colors hover:bg-surface"
                 >
-                  {social.label.slice(0, 2)}
+                  <SocialIcon id={social.id} />
                 </a>
               </li>
             ))}

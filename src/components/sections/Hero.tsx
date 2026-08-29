@@ -15,7 +15,7 @@ export function Hero() {
   return (
     <section
       id="inicio"
-      className="relative z-10 flex min-h-[calc(100dvh-86px)] flex-col justify-center overflow-hidden px-6 py-14 sm:px-10 lg:px-[72px]"
+      className="relative z-10 flex min-h-[calc(100dvh-86px)] flex-col justify-center overflow-hidden px-6 py-6 sm:px-10 lg:px-[72px] lg:py-9"
     >
       <div className="flex flex-wrap items-center gap-x-6 gap-y-4">
         <p className="flex items-center gap-3.5 text-xs font-extrabold tracking-[0.2em] text-mist uppercase">
@@ -29,7 +29,7 @@ export function Hero() {
         </p>
       </div>
 
-      <h1 className="mt-8 font-display text-[clamp(2.9rem,10.4vw,9.375rem)] leading-[0.86] uppercase">
+      <h1 className="mt-6 font-display text-[clamp(2.6rem,9.4vw,8.5rem)] leading-[0.86] uppercase">
         <span className="block">
           Tu <span className="gradient-text">cuenta</span>
         </span>
@@ -38,12 +38,12 @@ export function Hero() {
         </span>
       </h1>
 
-      <div className="mt-12 grid gap-10 lg:grid-cols-[17rem_minmax(0,1fr)] lg:items-start lg:gap-14">
+      <div className="mt-6 grid gap-6 lg:grid-cols-[16rem_minmax(0,1fr)] lg:items-start lg:gap-12">
         <Parallax shift={5} className="hidden lg:block">
-          <PortraitPlaceholder className="aspect-3/4 rounded-[28px]" />
+          <PortraitPlaceholder className="h-[clamp(11rem,26vh,19rem)] rounded-[28px]" />
         </Parallax>
 
-        <div className="flex flex-col gap-8">
+        <div className="flex flex-col gap-5">
           <Reveal>
             <p className="max-w-[46ch] text-[17.5px] leading-[1.62] text-mist text-pretty">
               El brief, la producción y el informe salen de la misma cabeza:
@@ -108,7 +108,7 @@ export function Hero() {
         </div>
       </div>
 
-      <div className="mt-14 flex flex-wrap items-center justify-between gap-4 border-t border-bone/10 pt-7">
+      <div className="mt-6 flex flex-wrap items-center justify-between gap-4 border-t border-bone/10 pt-4">
         <p className="flex items-center gap-2.5 text-xs font-bold tracking-[0.14em] text-muted uppercase">
           <ArrowDown size={15} strokeWidth={2.4} />
           Baja para ver casos
