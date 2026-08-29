@@ -1,4 +1,5 @@
 import { metrics } from "@/content/metrics";
+import { Parallax } from "@/components/motion/Parallax";
 import { Reveal } from "@/components/motion/Reveal";
 import { Sticker } from "@/components/ui/Sticker";
 
@@ -32,11 +33,11 @@ export function Metrics() {
   return (
     <section
       aria-label="Resultados"
-      className="relative z-10 overflow-hidden border-y border-bone/10 bg-void"
+      className="relative z-10 overflow-clip border-y border-bone/10 bg-void"
     >
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-0 opacity-60 [background-image:repeating-linear-gradient(0deg,rgba(244,234,214,.055)_0_1px,transparent_1px_40px),repeating-linear-gradient(90deg,rgba(244,234,214,.055)_0_1px,transparent_1px_40px)]"
+        className="pointer-events-none absolute inset-0 opacity-60 bg-[repeating-linear-gradient(0deg,rgba(244,234,214,.055)_0_1px,transparent_1px_40px),repeating-linear-gradient(90deg,rgba(244,234,214,.055)_0_1px,transparent_1px_40px)]"
       />
 
       <div className="relative hidden md:block">
@@ -149,19 +150,21 @@ export function Metrics() {
           </text>
         </svg>
 
-        <Sticker
-          variant="mancha"
-          size={112}
-          rotate={-9}
+        {/* Las pegatinas se mueven bastante más que el dibujo, y en sentidos
+            opuestos: es lo que separa los planos y hace visible la profundidad. */}
+        <Parallax
+          shift={26}
           className="pointer-events-none absolute bottom-[6%] left-[13%]"
-        />
-        <Sticker
-          variant="nube"
-          fill="#FF7A3D"
-          size={116}
-          rotate={7}
+        >
+          <Sticker variant="mancha" size={112} rotate={-9} />
+        </Parallax>
+        <Parallax
+          shift={22}
+          reverse
           className="pointer-events-none absolute top-[14%] right-[6%]"
-        />
+        >
+          <Sticker variant="nube" fill="#FF7A3D" size={116} rotate={7} />
+        </Parallax>
       </div>
 
       <div className="relative flex flex-col gap-8 px-6 py-16 sm:px-10 md:hidden">

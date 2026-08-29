@@ -25,7 +25,7 @@ export function ContactSection() {
     >
       <div className="grid gap-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.05fr)] lg:gap-14">
         <div className="flex flex-col gap-8">
-          <div className="flex flex-col gap-5">
+          <Reveal variant="left" className="flex flex-col gap-5">
             <p className="flex items-center gap-3 text-xs font-extrabold tracking-[0.18em] text-mist uppercase">
               <span aria-hidden className="h-0.5 w-6 bg-magenta" />
               Contacto
@@ -39,7 +39,7 @@ export function ContactSection() {
               Cuéntame en dos líneas qué necesitas. Respondo en menos de{" "}
               {site.responseTime} con una primera idea de por dónde iría.
             </p>
-          </div>
+          </Reveal>
 
           <ul className="grid gap-3.5 sm:grid-cols-2">
             {details.map(({ icon: Icon, label, value, href }) => {

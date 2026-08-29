@@ -1,3 +1,4 @@
+import { Parallax } from "@/components/motion/Parallax";
 import { Reveal } from "@/components/motion/Reveal";
 import { PortraitPlaceholder } from "@/components/ui/PortraitPlaceholder";
 import { Sticker } from "@/components/ui/Sticker";
@@ -11,7 +12,7 @@ export function About() {
   return (
     <section
       id="sobre-mi"
-      className="relative z-10 overflow-hidden bg-[linear-gradient(158deg,#16121D_0%,#0A090C_40%,#0C0A11_70%,#151120_100%)] px-6 py-24 sm:px-10 lg:px-[72px] lg:py-32"
+      className="relative z-10 overflow-clip bg-[linear-gradient(158deg,#16121D_0%,#0A090C_40%,#0C0A11_70%,#151120_100%)] px-6 py-24 sm:px-10 lg:px-[72px] lg:py-32"
     >
       <span
         aria-hidden
@@ -21,7 +22,8 @@ export function About() {
       </span>
 
       <div className="grid gap-10 lg:grid-cols-[minmax(0,1.45fr)_minmax(0,1fr)] lg:items-start lg:gap-14">
-        <Reveal className="lg:-rotate-[1.6deg]">
+        <Parallax shift={7} className="lg:-rotate-[1.6deg]">
+          <Reveal variant="tilt" tilt={-3}>
           <article className="grain relative rounded-sm bg-[linear-gradient(172deg,#F7EEDC,#F1E6CF)] px-7 py-9 shadow-[0_36px_74px_-20px_rgba(0,0,0,0.86)] sm:px-12 sm:py-11">
             <div className="flex items-center gap-3">
               <span className="text-xs font-extrabold tracking-[0.24em] text-[#554C61] uppercase">
@@ -92,9 +94,11 @@ export function About() {
             </div>
           </article>
         </Reveal>
+        </Parallax>
 
         <div className="flex flex-col gap-8">
-          <Reveal delay={0.1} className="lg:rotate-[4.5deg]">
+          <Parallax shift={17} className="lg:rotate-[4.5deg]">
+            <Reveal variant="tilt" tilt={5} delay={0.08}>
             <figure className="bg-[linear-gradient(168deg,#F3EAD8,#E7DCC6)] p-4 shadow-[0_38px_72px_-22px_rgba(0,0,0,0.9)]">
               <PortraitPlaceholder
                 caption="[ Retrato ]"
@@ -105,9 +109,11 @@ export function About() {
               </figcaption>
             </figure>
           </Reveal>
+          </Parallax>
 
           <div className="flex flex-col gap-8 sm:flex-row sm:items-start lg:flex-col">
-            <Reveal delay={0.16} className="lg:-rotate-[5deg]">
+            <Parallax shift={11} reverse className="lg:-rotate-[5deg]">
+              <Reveal variant="tilt" tilt={-6} delay={0.14}>
               <aside className="flex flex-col gap-3 bg-[linear-gradient(158deg,#FFC24A,#FF8A3D_62%,#FF7A3D)] p-6 shadow-[0_24px_44px_-16px_rgba(0,0,0,0.82)] sm:max-w-[13rem]">
                 <span className="text-xs font-extrabold tracking-[0.18em] text-[#3A1408] uppercase">
                   Regla nº 1
@@ -117,8 +123,10 @@ export function About() {
                 </p>
               </aside>
             </Reveal>
+            </Parallax>
 
-            <Reveal delay={0.22} className="lg:rotate-[3.2deg]">
+            <Parallax shift={14} className="lg:rotate-[3.2deg]">
+              <Reveal variant="tilt" tilt={4} delay={0.2}>
               <aside className="flex flex-col gap-2.5 bg-[linear-gradient(172deg,#F8F3E5,#EAE3D0)] px-5 py-4 shadow-[0_20px_38px_-18px_rgba(0,0,0,0.86)] sm:max-w-[19rem]">
                 <span className="text-xs font-extrabold tracking-[0.15em] text-[#3B3348] uppercase">
                   Tiquet de caja
@@ -164,6 +172,7 @@ export function About() {
                 </p>
               </aside>
             </Reveal>
+            </Parallax>
           </div>
         </div>
       </div>

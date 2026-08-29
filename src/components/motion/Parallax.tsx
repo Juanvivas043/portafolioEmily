@@ -1,12 +1,18 @@
-import type { CSSProperties, ReactNode } from "react";
+import type { CSSProperties, ElementType, ReactNode } from "react";
 
 type ParallaxProps = {
   children: ReactNode;
   /**
-   * Desplazamiento en porcentaje de la propia altura. Positivo va más lento que
-   * el scroll, negativo más rápido. Entre 4 y 12 suele bastar.
+   * Recorrido en porcentaje de la propia altura, repartido entre la entrada y
+   * la salida. Un 10 mueve el elemento desde +10% hasta -10%, o sea una quinta
+   * parte de su alto a lo largo de todo el paso por pantalla.
+   *
+   * Por debajo de 6 no se aprecia. Entre 8 y 18 se nota sin marear.
    */
   shift?: number;
+  /** Invierte el sentido: útil para que dos columnas se crucen. */
+  reverse?: boolean;
+  as?: ElementType;
   className?: string;
 };
 
@@ -15,20 +21,30 @@ type ParallaxProps = {
  *
  * Cero JavaScript y cero listeners de scroll: donde no hay soporte el elemento
  * simplemente se queda quieto, que es una degradación perfectamente aceptable.
+ *
+ * Ojo: si un ancestro recorta con overflow hidden, el recorrido se ve cortado.
  */
-export function Parallax({ children, shift = 8, className }: ParallaxProps) {
+export function Parallax({
+  children,
+  shift = 10,
+  reverse = false,
+  as: Tag = "div",
+  className,
+}: ParallaxProps) {
+  const from = reverse ? -shift : shift;
+
   return (
-    <div
+    <Tag
       data-parallax=""
       className={className}
       style={
         {
-          "--parallax-from": `${shift}%`,
-          "--parallax-to": `${-shift}%`,
+          "--parallax-from": `${from}%`,
+          "--parallax-to": `${-from}%`,
         } as CSSProperties
       }
     >
       {children}
-    </div>
+    </Tag>
   );
 }

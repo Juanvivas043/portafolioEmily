@@ -131,6 +131,60 @@ body::before {
   }
 }
 
+@keyframes reveal-fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes reveal-left {
+  from {
+    opacity: 0;
+    transform: translateX(-3.5rem);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes reveal-right {
+  from {
+    opacity: 0;
+    transform: translateX(3.5rem);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes reveal-scale {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Entrada con un ligero giro, para las piezas del collage de «Sobre mí». */
+@keyframes reveal-tilt {
+  from {
+    opacity: 0;
+    transform: translateY(2rem) rotate(var(--reveal-tilt, -4deg));
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
 @keyframes parallax-shift {
   from {
     transform: translateY(var(--parallax-from, 6%));
@@ -224,13 +278,35 @@ body::before {
 [data-reveal] {
   animation: reveal-up linear both;
   animation-timeline: view();
-  animation-range: entry 0% cover 30%;
+  animation-range: entry 0% cover 32%;
 }
 
+[data-reveal="fade"] {
+  animation-name: reveal-fade;
+}
+[data-reveal="left"] {
+  animation-name: reveal-left;
+}
+[data-reveal="right"] {
+  animation-name: reveal-right;
+}
+[data-reveal="scale"] {
+  animation-name: reveal-scale;
+}
+[data-reveal="tilt"] {
+  animation-name: reveal-tilt;
+}
+
+/*
+ * El parallax necesita que el elemento pueda salirse de su caja, así que el
+ * contenedor no debe recortarlo. El rango cubre el paso completo por pantalla
+ * para que el recorrido sea largo y se note.
+ */
 [data-parallax] {
   animation: parallax-shift linear both;
   animation-timeline: view();
   animation-range: cover 0% cover 100%;
+  will-change: transform;
 }
 
 [data-marquee] {
@@ -253,6 +329,22 @@ body::before {
       transform 0.75s var(--ease-out-soft) var(--reveal-delay, 0s);
   }
 
+  [data-reveal="fade"] {
+    transform: none;
+  }
+  [data-reveal="left"] {
+    transform: translateX(-3.5rem);
+  }
+  [data-reveal="right"] {
+    transform: translateX(3.5rem);
+  }
+  [data-reveal="scale"] {
+    transform: scale(0.9);
+  }
+  [data-reveal="tilt"] {
+    transform: translateY(2rem) rotate(var(--reveal-tilt, -4deg));
+  }
+
   [data-reveal][data-visible="true"] {
     opacity: 1;
     transform: none;
@@ -260,6 +352,25 @@ body::before {
 
   [data-parallax] {
     animation: none;
+  }
+}
+
+/*
+ * Tarjetas apiladas.
+ *
+ * Cada tarjeta se queda pegada bajo la cabecera con un desfase creciente, así
+ * que la siguiente sube por encima y deja asomar el borde de la anterior. Es
+ * position: sticky puro, sin JavaScript ni cálculo de scroll.
+ */
+[data-stack-card] {
+  position: sticky;
+  top: calc(var(--stack-offset, 7rem) + var(--stack-index, 0) * 1.4rem);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  /* Apilar es movimiento: sin él, las tarjetas se leen como una lista normal. */
+  [data-stack-card] {
+    position: static;
   }
 }
 

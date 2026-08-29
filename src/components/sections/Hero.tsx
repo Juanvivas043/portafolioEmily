@@ -15,9 +15,9 @@ export function Hero() {
   return (
     <section
       id="inicio"
-      className="relative z-10 flex min-h-[calc(100dvh-86px)] flex-col justify-center overflow-hidden px-6 py-6 sm:px-10 lg:px-[72px] lg:py-9"
+      className="relative z-10 flex min-h-[calc(100dvh-86px)] flex-col justify-center overflow-clip px-6 py-6 sm:px-10 lg:px-[72px] lg:py-9"
     >
-      <div className="flex flex-wrap items-center gap-x-6 gap-y-4">
+      <Reveal variant="fade" className="flex flex-wrap items-center gap-x-6 gap-y-4">
         <p className="flex items-center gap-3.5 text-xs font-extrabold tracking-[0.2em] text-mist uppercase">
           <span aria-hidden className="h-0.5 w-8 bg-magenta" />
           {site.roleLong}
@@ -27,19 +27,20 @@ export function Hero() {
           <span aria-hidden className="size-2 rounded-full bg-mint" />
           Agenda abierta
         </p>
-      </div>
+      </Reveal>
 
       <h1 className="mt-6 font-display text-[clamp(2.6rem,9.4vw,8.5rem)] leading-[0.86] uppercase">
-        <span className="block">
+        {/* Cada línea entra por su lado, así el titular se monta en dos tiempos. */}
+        <Reveal variant="left" as="span" className="block">
           Tu <span className="gradient-text">cuenta</span>
-        </span>
-        <span className="block lg:pl-[19rem]">
+        </Reveal>
+        <Reveal variant="right" delay={0.12} as="span" className="block lg:pl-[19rem]">
           <span className="text-hollow">La llevo</span> yo
-        </span>
+        </Reveal>
       </h1>
 
       <div className="mt-6 grid gap-6 lg:grid-cols-[16rem_minmax(0,1fr)] lg:items-start lg:gap-12">
-        <Parallax shift={5} className="hidden lg:block">
+        <Parallax shift={16} className="hidden lg:block">
           <PortraitPlaceholder className="h-[clamp(11rem,26vh,19rem)] rounded-[28px]" />
         </Parallax>
 

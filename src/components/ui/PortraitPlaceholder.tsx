@@ -17,7 +17,7 @@ export function PortraitPlaceholder({
   className,
 }: PortraitPlaceholderProps) {
   return (
-    <div className={`relative isolate overflow-hidden bg-surface ${className ?? ""}`}>
+    <div className={`relative isolate overflow-clip bg-surface ${className ?? ""}`}>
       <svg
         viewBox="0 0 300 400"
         preserveAspectRatio="xMidYMid slice"

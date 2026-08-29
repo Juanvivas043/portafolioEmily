@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { Parallax } from "@/components/motion/Parallax";
 import { ArrowUpRight } from "lucide-react";
 
 import { Reveal } from "@/components/motion/Reveal";
@@ -41,13 +42,21 @@ export function Portfolio() {
         <Reveal as="li" className="lg:col-span-4">
           <Link
             href={`/proyectos/${featured.slug}`}
-            className="grain group flex h-full flex-col overflow-hidden rounded-[28px] bg-surface transition-transform hover:-translate-y-1"
+            className="grain group flex h-full flex-col overflow-clip rounded-[28px] bg-surface transition-transform hover:-translate-y-1"
           >
+            {/* El fondo es mayor que su ventana para que el parallax tenga
+                recorrido sin dejar huecos por los bordes. */}
             <span
               aria-hidden
-              className="h-56 w-full lg:h-64"
-              style={{ backgroundImage: TINT[featured.tint] }}
-            />
+              className="relative block h-56 w-full overflow-clip lg:h-64"
+            >
+              <Parallax shift={18} className="absolute inset-0 m-[-14%]">
+                <span
+                  className="block h-full w-full"
+                  style={{ backgroundImage: TINT[featured.tint] }}
+                />
+              </Parallax>
+            </span>
             <div className="flex flex-1 flex-col gap-3 p-6 sm:flex-row sm:items-end sm:justify-between sm:gap-8 sm:p-7">
               <div className="flex flex-col gap-2.5">
                 <span className="w-fit rounded-full bg-void/70 px-3 py-1.5 text-[11px] font-extrabold tracking-[0.12em] text-bone uppercase">
@@ -81,13 +90,20 @@ export function Portfolio() {
           >
             <Link
               href={`/proyectos/${project.slug}`}
-              className="grain group flex h-full flex-col overflow-hidden rounded-[28px] bg-surface transition-transform hover:-translate-y-1"
+              className="grain group flex h-full flex-col overflow-clip rounded-[28px] bg-surface transition-transform hover:-translate-y-1"
             >
-              <span
-                aria-hidden
-                className="h-44 w-full"
-                style={{ backgroundImage: TINT[project.tint] }}
-              />
+              <span aria-hidden className="relative block h-44 w-full overflow-clip">
+                <Parallax
+                  shift={16}
+                  reverse={index % 2 === 1}
+                  className="absolute inset-0 m-[-14%]"
+                >
+                  <span
+                    className="block h-full w-full"
+                    style={{ backgroundImage: TINT[project.tint] }}
+                  />
+                </Parallax>
+              </span>
               <div className="flex flex-1 flex-col gap-2.5 p-6">
                 <span className="w-fit rounded-full bg-void/70 px-3 py-1.5 text-[11px] font-extrabold tracking-[0.12em] text-bone uppercase">
                   {project.category}
