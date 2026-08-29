@@ -30,11 +30,17 @@ export function Hero() {
       </Reveal>
 
       <h1 className="mt-6 font-display text-[clamp(2.6rem,9.4vw,8.5rem)] leading-[0.86] uppercase">
-        {/* Cada línea entra por su lado, así el titular se monta en dos tiempos. */}
-        <Reveal variant="left" as="span" className="block">
+        {/* Cada línea sube desde detrás de su propia caja, una tras otra: el
+            titular se monta a la vista en vez de aparecer entero. */}
+        <Reveal variant="clip" as="span" className="block">
           Tu <span className="gradient-text">cuenta</span>
         </Reveal>
-        <Reveal variant="right" delay={0.12} as="span" className="block lg:pl-[19rem]">
+        <Reveal
+          variant="clip"
+          delay={0.14}
+          as="span"
+          className="block lg:pl-[19rem]"
+        >
           <span className="text-hollow">La llevo</span> yo
         </Reveal>
       </h1>
@@ -98,16 +104,19 @@ export function Hero() {
                 opacity=".92"
               />
             </svg>
-
-            <Sticker
-              variant="estrella"
-              size={140}
-              rotate={9}
-              className="absolute -top-10 right-8 hidden xl:block"
-            />
           </div>
         </div>
       </div>
+
+      {/* Anclada a la sección, no a la columna de texto: así queda en el hueco
+          libre de la derecha y no se le echa encima al pie del hero. */}
+      <Parallax
+        shift={20}
+        reverse
+        className="pointer-events-none absolute right-10 bottom-32 hidden xl:block"
+      >
+        <Sticker variant="estrella" size={104} rotate={9} />
+      </Parallax>
 
       <div className="mt-6 flex flex-wrap items-center justify-between gap-4 border-t border-bone/10 pt-4">
         <p className="flex items-center gap-2.5 text-xs font-bold tracking-[0.14em] text-muted uppercase">

@@ -26,10 +26,15 @@ export function Portfolio() {
             <span aria-hidden className="h-0.5 w-6 bg-magenta" />
             Portfolio
           </p>
+          {/* Un solo h2: las líneas son spans para que cada una barra por su
+              cuenta sin romper la jerarquía del documento. */}
           <h2 className="font-display text-[clamp(2.5rem,6.4vw,4.5rem)] leading-[0.92] uppercase">
-            Casos
-            <br />
-            que cuento
+            <Reveal variant="clip" as="span" className="block">
+              Casos
+            </Reveal>
+            <Reveal variant="clip" delay={0.12} as="span" className="block">
+              que cuento
+            </Reveal>
           </h2>
         </div>
         <p className="max-w-[34ch] text-base leading-relaxed text-mist lg:text-right text-pretty">

@@ -2,6 +2,7 @@ import { Clock, Mail, MapPin, Phone } from "lucide-react";
 
 import { ContactForm } from "@/components/form/ContactForm";
 import { Reveal } from "@/components/motion/Reveal";
+import { Stagger } from "@/components/motion/Stagger";
 import { site, socials } from "@/content/site";
 
 /**
@@ -25,23 +26,40 @@ export function ContactSection() {
     >
       <div className="grid gap-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.05fr)] lg:gap-14">
         <div className="flex flex-col gap-8">
-          <Reveal variant="left" className="flex flex-col gap-5">
-            <p className="flex items-center gap-3 text-xs font-extrabold tracking-[0.18em] text-mist uppercase">
-              <span aria-hidden className="h-0.5 w-6 bg-magenta" />
-              Contacto
-            </p>
-            <h2 className="font-display text-[clamp(2.6rem,7vw,4.875rem)] leading-[0.88] uppercase">
-              ¿Hablamos
-              <br />
-              de tu marca?
-            </h2>
-            <p className="max-w-[40ch] text-base leading-relaxed text-mist text-pretty">
-              Cuéntame en dos líneas qué necesitas. Respondo en menos de{" "}
-              {site.responseTime} con una primera idea de por dónde iría.
-            </p>
-          </Reveal>
+          {/* Cada pieza entra por su cuenta, escalonada. Anidar los barridos
+              dentro de otro Reveal haría que las dos animaciones se pisaran. */}
+          <div className="flex flex-col gap-5">
+            <Reveal variant="fade">
+              <p className="flex items-center gap-3 text-xs font-extrabold tracking-[0.18em] text-mist uppercase">
+                <span aria-hidden className="h-0.5 w-6 bg-magenta" />
+                Contacto
+              </p>
+            </Reveal>
 
-          <ul className="grid gap-3.5 sm:grid-cols-2">
+            <h2 className="font-display text-[clamp(2.6rem,7vw,4.875rem)] leading-[0.88] uppercase">
+              <Reveal variant="clip" as="span" className="block">
+                ¿Hablamos
+              </Reveal>
+              <Reveal variant="clip" delay={0.12} as="span" className="block">
+                de tu marca?
+              </Reveal>
+            </h2>
+
+            <Reveal delay={0.2}>
+              <p className="max-w-[40ch] text-base leading-relaxed text-mist text-pretty">
+                Cuéntame en dos líneas qué necesitas. Respondo en menos de{" "}
+                {site.responseTime} con una primera idea de por dónde iría.
+              </p>
+            </Reveal>
+          </div>
+
+          <Stagger
+            as="ul"
+            itemAs="li"
+            variant="scale"
+            step={0.07}
+            className="grid gap-3.5 sm:grid-cols-2"
+          >
             {details.map(({ icon: Icon, label, value, href }) => {
               const body = (
                 <>
@@ -57,24 +75,25 @@ export function ContactSection() {
                 </>
               );
 
-              return (
-                <li key={label}>
-                  {href ? (
-                    <a
-                      href={href}
-                      className="grain flex h-full flex-col gap-3 rounded-[22px] bg-surface p-5 transition-colors hover:bg-raised"
-                    >
-                      {body}
-                    </a>
-                  ) : (
-                    <div className="grain flex h-full flex-col gap-3 rounded-[22px] bg-surface p-5">
-                      {body}
-                    </div>
-                  )}
-                </li>
+              // El <li> lo pone Stagger, que es quien envuelve cada hijo.
+              return href ? (
+                <a
+                  key={label}
+                  href={href}
+                  className="grain flex h-full flex-col gap-3 rounded-[22px] bg-surface p-5 transition-colors hover:bg-raised"
+                >
+                  {body}
+                </a>
+              ) : (
+                <div
+                  key={label}
+                  className="grain flex h-full flex-col gap-3 rounded-[22px] bg-surface p-5"
+                >
+                  {body}
+                </div>
               );
             })}
-          </ul>
+          </Stagger>
 
           <ul className="flex flex-wrap gap-2.5">
             {socials.map((social) => (

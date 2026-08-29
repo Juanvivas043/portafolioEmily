@@ -39,6 +39,41 @@
   /* Ruido generado con feTurbulence: cero peso de red frente a una textura PNG. */
   --texture-grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.7'/%3E%3C/svg%3E");
 
+  /*
+   * Polvo: motas claras dispersas, como las de la guía. Son degradados
+   * radiales diminutos en un mosaico de 400px que se repite, así que no cuesta
+   * ni una petición ni un solo píxel de imagen.
+   */
+  --texture-dust:
+    radial-gradient(1.6px 1.6px at 32px 58px, rgba(244, 234, 214, 0.75), transparent 62%),
+    radial-gradient(1.1px 1.1px at 178px 26px, rgba(196, 169, 255, 0.7), transparent 62%),
+    radial-gradient(1.3px 1.3px at 291px 97px, rgba(244, 234, 214, 0.6), transparent 62%),
+    radial-gradient(1.1px 1.1px at 84px 143px, rgba(255, 141, 190, 0.62), transparent 62%),
+    radial-gradient(1.7px 1.7px at 351px 189px, rgba(244, 234, 214, 0.68), transparent 62%),
+    radial-gradient(1px 1px at 121px 233px, rgba(196, 169, 255, 0.58), transparent 62%),
+    radial-gradient(1.4px 1.4px at 246px 271px, rgba(244, 234, 214, 0.66), transparent 62%),
+    radial-gradient(1.1px 1.1px at 47px 318px, rgba(244, 234, 214, 0.54), transparent 62%),
+    radial-gradient(1.5px 1.5px at 328px 344px, rgba(255, 141, 190, 0.6), transparent 62%),
+    radial-gradient(1.1px 1.1px at 199px 372px, rgba(196, 169, 255, 0.62), transparent 62%),
+    radial-gradient(1.2px 1.2px at 268px 12px, rgba(244, 234, 214, 0.55), transparent 62%),
+    radial-gradient(1px 1px at 12px 211px, rgba(244, 234, 214, 0.5), transparent 62%),
+    radial-gradient(1.6px 1.6px at 152px 305px, rgba(244, 234, 214, 0.64), transparent 62%),
+    radial-gradient(1px 1px at 372px 78px, rgba(196, 169, 255, 0.55), transparent 62%),
+    radial-gradient(1.3px 1.3px at 62px 388px, rgba(244, 234, 214, 0.6), transparent 62%),
+    radial-gradient(1.1px 1.1px at 219px 166px, rgba(255, 141, 190, 0.56), transparent 62%),
+    radial-gradient(1px 1px at 96px 88px, rgba(244, 234, 214, 0.45), transparent 62%),
+    radial-gradient(1.4px 1.4px at 314px 226px, rgba(244, 234, 214, 0.58), transparent 62%),
+    radial-gradient(1px 1px at 141px 62px, rgba(196, 169, 255, 0.48), transparent 62%),
+    radial-gradient(1.2px 1.2px at 233px 341px, rgba(244, 234, 214, 0.55), transparent 62%),
+    radial-gradient(1px 1px at 28px 264px, rgba(255, 141, 190, 0.46), transparent 62%),
+    radial-gradient(1.5px 1.5px at 388px 296px, rgba(244, 234, 214, 0.6), transparent 62%),
+    radial-gradient(1px 1px at 168px 197px, rgba(244, 234, 214, 0.44), transparent 62%),
+    radial-gradient(1.3px 1.3px at 76px 356px, rgba(196, 169, 255, 0.54), transparent 62%),
+    radial-gradient(1px 1px at 302px 148px, rgba(244, 234, 214, 0.46), transparent 62%),
+    radial-gradient(1.4px 1.4px at 208px 108px, rgba(244, 234, 214, 0.56), transparent 62%),
+    radial-gradient(1px 1px at 356px 42px, rgba(255, 141, 190, 0.44), transparent 62%),
+    radial-gradient(1.2px 1.2px at 118px 168px, rgba(244, 234, 214, 0.5), transparent 62%);
+
   color-scheme: dark;
 }
 
@@ -54,20 +89,49 @@ section[id] {
 }
 
 body {
-  background: var(--color-void);
+  /*
+   * Las entradas laterales arrancan desplazadas casi 90px, así que durante la
+   * animación se salen por la derecha y aparecería una barra horizontal. Se
+   * recorta con `clip` y no con `hidden` a propósito: `hidden` crearía un
+   * contenedor de scroll y dejaría inertes las líneas de tiempo de view().
+   */
+  overflow-x: clip;
+
+  /* El negro plano se ve muerto: la guía tiene un tinte violáceo que sube por
+     el centro y se apaga en los bordes. */
+  background-color: var(--color-void);
+  background-image:
+    radial-gradient(120% 80% at 50% 0%, rgba(124, 58, 237, 0.09), transparent 60%),
+    radial-gradient(100% 70% at 12% 42%, rgba(255, 46, 136, 0.05), transparent 62%);
+  background-attachment: fixed;
   color: var(--color-bone);
   font-family: var(--font-sans);
 }
 
-/* Capa de grano global. Va en un ::before del body para no meter un div vacío
-   en el árbol y para que quede por debajo de cualquier contenido posicionado. */
+/*
+ * Textura de fondo, en dos capas fijas para que el contenido pase por encima
+ * de ella y el fondo se sienta como un material y no como un color.
+ *
+ * Van en pseudoelementos del body para no meter divs vacíos en el árbol, y
+ * ambas quedan por debajo de cualquier contenido, que va en z-10.
+ */
 body::before {
   content: "";
   position: fixed;
   inset: 0;
   z-index: 0;
   pointer-events: none;
-  opacity: 0.34;
+  background-image: var(--texture-dust);
+  background-size: 400px 400px;
+}
+
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.42;
   mix-blend-mode: overlay;
   background-image: var(--texture-grain);
 }
@@ -123,53 +187,63 @@ body::before {
 @keyframes reveal-up {
   from {
     opacity: 0;
-    transform: translateY(2.5rem);
+    transform: translateY(5rem);
+    filter: blur(6px);
   }
   to {
     opacity: 1;
     transform: none;
+    filter: blur(0);
   }
 }
 
 @keyframes reveal-fade {
   from {
     opacity: 0;
+    filter: blur(5px);
   }
   to {
     opacity: 1;
+    filter: blur(0);
   }
 }
 
 @keyframes reveal-left {
   from {
     opacity: 0;
-    transform: translateX(-3.5rem);
+    transform: translateX(-5.5rem);
+    filter: blur(6px);
   }
   to {
     opacity: 1;
     transform: none;
+    filter: blur(0);
   }
 }
 
 @keyframes reveal-right {
   from {
     opacity: 0;
-    transform: translateX(3.5rem);
+    transform: translateX(5.5rem);
+    filter: blur(6px);
   }
   to {
     opacity: 1;
     transform: none;
+    filter: blur(0);
   }
 }
 
 @keyframes reveal-scale {
   from {
     opacity: 0;
-    transform: scale(0.9);
+    transform: scale(0.84) translateY(2.5rem);
+    filter: blur(7px);
   }
   to {
     opacity: 1;
     transform: none;
+    filter: blur(0);
   }
 }
 
@@ -177,11 +251,39 @@ body::before {
 @keyframes reveal-tilt {
   from {
     opacity: 0;
-    transform: translateY(2rem) rotate(var(--reveal-tilt, -4deg));
+    transform: translateY(4rem) rotate(var(--reveal-tilt, -4deg)) scale(0.94);
+    filter: blur(6px);
   }
   to {
     opacity: 1;
     transform: none;
+    filter: blur(0);
+  }
+}
+
+/*
+ * Barrido de máscara: el texto sube desde detrás de su propia caja. Es el
+ * recurso que mejor se lee como «esto se está montando», y por eso va en los
+ * titulares. El -30% final evita que se coman las colas de las letras.
+ */
+@keyframes reveal-clip {
+  from {
+    clip-path: inset(105% 0 -30% 0);
+    transform: translateY(0.9em);
+  }
+  to {
+    clip-path: inset(-30% 0 -30% 0);
+    transform: none;
+  }
+}
+
+/* Reglas y filetes que se dibujan de izquierda a derecha. */
+@keyframes reveal-draw {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
   }
 }
 
@@ -275,10 +377,15 @@ body::before {
   animation: overlay-out 0.26s ease-in both;
 }
 
+/*
+ * El tramo va de que el elemento asoma por abajo hasta casi la mitad de su
+ * paso por pantalla. Cuanto más largo, más se percibe que la página se está
+ * montando conforme bajas, en vez de aparecer de golpe.
+ */
 [data-reveal] {
   animation: reveal-up linear both;
   animation-timeline: view();
-  animation-range: entry 0% cover 32%;
+  animation-range: entry 0% cover 46%;
 }
 
 [data-reveal="fade"] {
@@ -295,6 +402,15 @@ body::before {
 }
 [data-reveal="tilt"] {
   animation-name: reveal-tilt;
+}
+[data-reveal="clip"] {
+  animation-name: reveal-clip;
+  animation-range: entry 0% cover 38%;
+}
+[data-reveal="draw"] {
+  animation-name: reveal-draw;
+  animation-range: entry 5% cover 34%;
+  transform-origin: 0 50%;
 }
 
 /*
@@ -333,21 +449,35 @@ body::before {
     transform: none;
   }
   [data-reveal="left"] {
-    transform: translateX(-3.5rem);
+    transform: translateX(-5.5rem);
   }
   [data-reveal="right"] {
-    transform: translateX(3.5rem);
+    transform: translateX(5.5rem);
   }
   [data-reveal="scale"] {
-    transform: scale(0.9);
+    transform: scale(0.84) translateY(2.5rem);
   }
   [data-reveal="tilt"] {
-    transform: translateY(2rem) rotate(var(--reveal-tilt, -4deg));
+    transform: translateY(4rem) rotate(var(--reveal-tilt, -4deg)) scale(0.94);
+  }
+  [data-reveal="clip"] {
+    opacity: 1;
+    clip-path: inset(105% 0 -30% 0);
+    transform: translateY(0.9em);
+    transition:
+      clip-path 0.85s var(--ease-out-soft) var(--reveal-delay, 0s),
+      transform 0.85s var(--ease-out-soft) var(--reveal-delay, 0s);
+  }
+  [data-reveal="draw"] {
+    opacity: 1;
+    transform: scaleX(0);
+    transform-origin: 0 50%;
   }
 
   [data-reveal][data-visible="true"] {
     opacity: 1;
     transform: none;
+    clip-path: inset(-30% 0 -30% 0);
   }
 
   [data-parallax] {
@@ -385,9 +515,12 @@ body::before {
     scroll-behavior: auto !important;
   }
 
-  /* Sin esto el contenido se quedaría invisible en la rama de respaldo. */
+  /* Sin esto el contenido se quedaría invisible o recortado en la rama de
+     respaldo, que parte de opacidad cero y máscara cerrada. */
   [data-reveal] {
     opacity: 1 !important;
     transform: none !important;
+    clip-path: none !important;
+    filter: none !important;
   }
 }

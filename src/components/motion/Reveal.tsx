@@ -1,10 +1,20 @@
 import type { CSSProperties, ElementType, ReactNode } from "react";
 
 /** "up" es el valor por defecto y se escribe como cadena vacía. */
-export type RevealVariant = "up" | "fade" | "left" | "right" | "scale" | "tilt";
+export type RevealVariant =
+  | "up"
+  | "fade"
+  | "left"
+  | "right"
+  | "scale"
+  | "tilt"
+  /** Barrido de máscara de abajo arriba. Para titulares. */
+  | "clip"
+  /** Se dibuja de izquierda a derecha. Para filetes y reglas. */
+  | "draw";
 
 type RevealProps = {
-  children: ReactNode;
+  children?: ReactNode;
   variant?: RevealVariant;
   /** Retardo en segundos, para escalonar hermanos. */
   delay?: number;
@@ -12,6 +22,8 @@ type RevealProps = {
   tilt?: number;
   as?: ElementType;
   className?: string;
+  /** Lo demás va tal cual al elemento: aria-hidden, id, role... */
+  [key: string]: unknown;
 };
 
 /**
@@ -28,9 +40,11 @@ export function Reveal({
   tilt,
   as: Tag = "div",
   className,
+  ...rest
 }: RevealProps) {
   return (
     <Tag
+      {...rest}
       data-reveal={variant === "up" ? "" : variant}
       className={className}
       style={

@@ -32,15 +32,27 @@ export function Services() {
       />
 
       <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between lg:gap-16">
-        <Reveal variant="left" className="flex flex-col gap-4">
-          <p className="flex items-center gap-3 text-xs font-extrabold tracking-[0.18em] text-mist uppercase">
-            <span aria-hidden className="h-0.5 w-6 bg-magenta" />
-            Servicios
-          </p>
-          <h2 className="font-display text-[clamp(2.5rem,6vw,3.875rem)] leading-[0.96] uppercase">
+        <div className="flex flex-col gap-4">
+          <Reveal variant="fade">
+            <p className="flex items-center gap-3 text-xs font-extrabold tracking-[0.18em] text-mist uppercase">
+              <Reveal
+                variant="draw"
+                as="span"
+                className="h-0.5 w-6 bg-magenta"
+                aria-hidden
+              />
+              Servicios
+            </p>
+          </Reveal>
+          <Reveal
+            variant="clip"
+            delay={0.1}
+            as="h2"
+            className="font-display text-[clamp(2.5rem,6vw,3.875rem)] leading-[0.96] uppercase"
+          >
             Lo que hago
-          </h2>
-        </Reveal>
+          </Reveal>
+        </div>
 
         <Reveal
           variant="right"

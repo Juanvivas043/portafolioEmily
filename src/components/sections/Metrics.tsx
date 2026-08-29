@@ -33,7 +33,7 @@ export function Metrics() {
   return (
     <section
       aria-label="Resultados"
-      className="relative z-10 overflow-clip border-y border-bone/10 bg-void"
+      className="relative z-10 overflow-clip border-y border-bone/10"
     >
       <div
         aria-hidden
