@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { Check, Loader2, Send } from "lucide-react";
 
 import { Field } from "@/components/form/Field";
@@ -50,8 +50,13 @@ export function ContactForm({
   const [status, setStatus] = useState<Status>("idle");
   const [serverMessage, setServerMessage] = useState<string | null>(null);
 
-  // Sirve para descartar envíos instantáneos, que solo hacen los bots.
-  const renderedAt = useRef(Date.now());
+  // Sirve para descartar envíos instantáneos, que solo hacen los bots. Se sella
+  // tras el montaje: leer el reloj durante el render no es puro y daría valores
+  // distintos en cada repintado.
+  const renderedAt = useRef(0);
+  useEffect(() => {
+    renderedAt.current = Date.now();
+  }, []);
 
   const remaining = useMemo(
     () => MESSAGE_MAX - values.message.length,
