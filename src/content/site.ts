@@ -60,7 +60,7 @@ function resolveSiteUrl(): string {
 export const site = {
   name: "Emily",
   /** Apellido u ocupación larga para el pie y los metadatos. */
-  fullName: "Emily",
+  fullName: "Emily Silva Valero",
   role: "Ejecutiva de cuentas",
   roleLong: "Ejecutiva de cuentas y creadora de contenido",
   tagline: "Del brief al post que funciona",
@@ -68,8 +68,8 @@ export const site = {
   summary:
     "Llevo la cuenta, escribo el brief y produzco el contenido. Un solo interlocutor entre tu marca y el equipo creativo.",
 
-  email: "hola@emily.com",
-  phone: "+58 412 123 4567",
+  email: "emilysilvav2001@gmail.com",
+  phone: "0414 112 8221",
   location: "Caracas, Venezuela",
   /** Se muestra junto a la ubicación: «Caracas, Venezuela · disponible en remoto». */
   availability: "disponible en remoto",
@@ -84,7 +84,10 @@ export const site = {
 } as const;
 
 export const socials: SocialLink[] = [
-  { id: "instagram", label: "Instagram", handle: "@emily", href: "https://instagram.com/emily" },
-  { id: "linkedin", label: "LinkedIn", handle: "emily", href: "https://linkedin.com/in/emily" },
-  { id: "tiktok", label: "TikTok", handle: "@emily", href: "https://tiktok.com/@emily" },
+  {
+    id: "linkedin",
+    label: "LinkedIn",
+    handle: "emily-silva-valero",
+    href: "https://www.linkedin.com/in/emily-silva-valero-b3b283258",
+  },
 ];

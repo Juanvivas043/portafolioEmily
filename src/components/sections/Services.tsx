@@ -58,7 +58,7 @@ export function Services() {
           className="max-w-[32ch] text-base leading-relaxed text-mist lg:text-right"
         >
           <p className="text-pretty">
-            Seis frentes. Puedo llevarlos todos o solo aquel donde tu equipo va
+            Cinco frentes. Puedo llevarlos todos o solo aquel donde tu equipo va
             corto.
           </p>
         </Reveal>

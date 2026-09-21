@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ArrowLeft, Check } from "lucide-react";
+import { ArrowLeft, Check, Sparkles } from "lucide-react";
 
 import { Footer } from "@/components/layout/Footer";
 import { RevealObserver } from "@/components/motion/RevealObserver";
@@ -63,25 +63,9 @@ export default async function ProjectPage({
           <h1 className="mt-5 font-display text-[clamp(2.5rem,8vw,5.5rem)] leading-[0.9] uppercase">
             {project.title}
           </h1>
-          <p className="mt-5 max-w-[52ch] text-lg leading-relaxed text-mist text-pretty">
+          <p className="mt-5 max-w-[56ch] text-lg leading-relaxed text-mist text-pretty">
             {project.summary}
           </p>
-
-          <dl className="mt-8 flex flex-wrap items-center gap-x-8 gap-y-4 border-t border-bone/10 pt-6">
-            <div>
-              <dt className="text-xs font-semibold text-muted">Resultado</dt>
-              <dd className="font-display text-2xl text-magenta">
-                {project.result.value}{" "}
-                <span className="font-sans text-sm font-semibold text-mist">
-                  {project.result.label}
-                </span>
-              </dd>
-            </div>
-            <div>
-              <dt className="text-xs font-semibold text-muted">Periodo</dt>
-              <dd className="font-display text-2xl">{project.detail.period}</dd>
-            </div>
-          </dl>
         </header>
 
         <div
@@ -90,43 +74,30 @@ export default async function ProjectPage({
           style={{ backgroundImage: TINT[project.tint] }}
         />
 
-        <div className="grid gap-12 px-6 py-16 sm:px-10 lg:grid-cols-[minmax(0,1.3fr)_minmax(0,1fr)] lg:gap-16 lg:px-[72px] lg:py-24">
+        <div className="grid gap-12 px-6 py-16 sm:px-10 lg:grid-cols-[minmax(0,1.35fr)_minmax(0,1fr)] lg:gap-16 lg:px-[72px] lg:py-24">
           <div className="flex flex-col gap-10">
             <section className="flex flex-col gap-4">
-              <h2 className="font-display text-3xl uppercase">El reto</h2>
-              <p className="max-w-[58ch] text-base leading-[1.7] text-mist text-pretty">
-                {project.detail.challenge}
+              <h2 className="font-display text-3xl uppercase">Descripción y Alcance</h2>
+              <p className="max-w-[58ch] text-base leading-[1.8] text-mist text-pretty">
+                {project.description}
               </p>
-            </section>
-
-            <section className="flex flex-col gap-5">
-              <h2 className="font-display text-3xl uppercase">Cómo lo abordé</h2>
-              <ol className="flex flex-col gap-4">
-                {project.detail.approach.map((step, index) => (
-                  <li key={step} className="flex gap-4">
-                    <span className="font-display text-sm text-magenta">
-                      {String(index + 1).padStart(2, "0")}
-                    </span>
-                    <p className="max-w-[54ch] text-base leading-[1.7] text-mist text-pretty">
-                      {step}
-                    </p>
-                  </li>
-                ))}
-              </ol>
             </section>
           </div>
 
-          <aside className="grain flex h-fit flex-col gap-4 rounded-[26px] bg-surface p-7">
-            <h2 className="font-display text-2xl uppercase">Qué entregué</h2>
+          <aside className="grain flex h-fit flex-col gap-5 rounded-[26px] border border-bone/10 bg-surface p-7">
+            <div className="flex items-center gap-2.5">
+              <Sparkles size={18} className="text-magenta" />
+              <h2 className="font-display text-2xl uppercase">Servicios ejecutados</h2>
+            </div>
             <ul className="flex flex-col gap-3">
-              {project.detail.deliverables.map((item) => (
+              {project.services.map((item) => (
                 <li key={item} className="flex items-start gap-3">
                   <Check
                     size={17}
                     strokeWidth={2.6}
                     className="mt-0.5 shrink-0 text-mint"
                   />
-                  <span className="text-[15px] leading-relaxed text-mist">
+                  <span className="text-[15px] font-medium leading-relaxed text-bone">
                     {item}
                   </span>
                 </li>
@@ -142,12 +113,11 @@ export default async function ProjectPage({
                 ¿Tienes algo parecido entre manos?
               </h2>
               <p className="max-w-[42ch] text-base leading-relaxed text-mist text-pretty">
-                Cuéntamelo y te digo por dónde empezaría, sin compromiso.
+                Hablemos de los objetivos de tu marca y definamos juntos la estrategia adecuada.
               </p>
             </div>
 
-            {/* El formulario se monta solo, sin la sección de contacto. */}
-            <ContactForm submitLabel="Cuéntame tu caso" />
+            <ContactForm submitLabel="Hablemos de tu marca" />
           </div>
         </section>
       </main>

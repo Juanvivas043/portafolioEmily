@@ -3,6 +3,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { Check, Loader2, Send } from "lucide-react";
 
+import { CustomSelect } from "@/components/form/CustomSelect";
 import { Field } from "@/components/form/Field";
 import { serviceOptions } from "@/content/services";
 import {
@@ -205,19 +206,14 @@ export function ContactForm({
         </Field>
 
         <Field id="topic" label="¿En qué te ayudo?">
-          {(props) => (
-            <select
-              {...props}
+          {({ id }) => (
+            <CustomSelect
+              id={id}
               name="topic"
               value={values.topic}
-              onChange={(event) => update("topic", event.target.value)}
-            >
-              {serviceOptions.map((option) => (
-                <option key={option} value={option} className="bg-[#0F0C14]">
-                  {option}
-                </option>
-              ))}
-            </select>
+              options={serviceOptions}
+              onChange={(option) => update("topic", option)}
+            />
           )}
         </Field>
       </div>

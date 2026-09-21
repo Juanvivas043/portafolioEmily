@@ -3,7 +3,7 @@ import { Clock, Mail, MapPin, Phone } from "lucide-react";
 import { ContactForm } from "@/components/form/ContactForm";
 import { Reveal } from "@/components/motion/Reveal";
 import { Stagger } from "@/components/motion/Stagger";
-import { site, socials } from "@/content/site";
+import { site } from "@/content/site";
 
 /**
  * Sección de contacto: el copy, los datos y el formulario.
@@ -14,7 +14,7 @@ import { site, socials } from "@/content/site";
 export function ContactSection() {
   const details = [
     { icon: Mail, label: "Correo", value: site.email, href: `mailto:${site.email}` },
-    { icon: Phone, label: "Teléfono", value: site.phone, href: `tel:${site.phone}` },
+    { icon: Phone, label: "Teléfono", value: site.phone, href: `tel:${site.phone.replace(/\s+/g, "")}` },
     { icon: MapPin, label: "Dónde estoy", value: site.location },
     { icon: Clock, label: "Horario", value: `${site.workingDays} · ${site.workingHours}` },
   ];
@@ -94,22 +94,6 @@ export function ContactSection() {
               );
             })}
           </Stagger>
-
-          <ul className="flex flex-wrap gap-2.5">
-            {socials.map((social) => (
-              <li key={social.id}>
-                <a
-                  href={social.href}
-                  target="_blank"
-                  rel="noreferrer noopener"
-                  className="flex min-h-12 items-center gap-2 rounded-2xl bg-raised px-5 text-[13px] font-bold text-bone transition-colors hover:bg-surface"
-                >
-                  {social.label}
-                  <span className="text-mist">{social.handle}</span>
-                </a>
-              </li>
-            ))}
-          </ul>
         </div>
 
         <Reveal>

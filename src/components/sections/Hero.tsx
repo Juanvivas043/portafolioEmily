@@ -51,8 +51,7 @@ export function Hero() {
 
           <Reveal delay={0.06}>
             <p className="max-w-[46ch] text-[17px] leading-[1.6] text-mist text-pretty">
-              El brief, la producción y el informe salen de la misma cabeza:
-              nada se pierde entre correos. Te contesto en {site.responseTime}.
+              La estrategia, la organización y la creatividad empiezan aquí
             </p>
           </Reveal>
 

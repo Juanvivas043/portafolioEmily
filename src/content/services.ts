@@ -22,28 +22,20 @@ export const services: Service[] = [
     number: "02",
     title: "Estrategia de contenido",
     description:
-      "Pilares, calendario y formatos pensados para cada plataforma, no copiados de una a otra.",
+      "Pilares, calendario y formatos pensados para cada plataforma.",
     tags: ["Calendario", "Pilares", "Formatos"],
   },
   {
-    id: "produccion",
+    id: "creacion",
     number: "03",
-    title: "Producción de contenido",
+    title: "Creación de contenido",
     description:
-      "Guion, grabación y edición de piezas para redes. De la idea al archivo listo para publicar.",
-    tags: ["Guion", "Cámara", "Montaje"],
-  },
-  {
-    id: "campanas",
-    number: "04",
-    title: "Campañas de pago",
-    description:
-      "Segmentación, reparto de presupuesto y ajuste semanal en Meta y Google.",
-    tags: ["Segmentación", "Presupuesto", "Optimización"],
+      "Transformo los objetivos de la marca en conceptos creativos listos para ser contenido con intención.",
+    tags: ["Idea", "Conceptualización", "Desarrollo"],
   },
   {
     id: "creadores",
-    number: "05",
+    number: "04",
     title: "Alianzas con creadores",
     description:
       "Selección, negociación y seguimiento de colaboraciones que encajan con la marca.",
@@ -51,7 +43,7 @@ export const services: Service[] = [
   },
   {
     id: "reporting",
-    number: "06",
+    number: "05",
     title: "Reporting",
     description:
       "Un informe al mes que dice qué funcionó, qué no y qué cambiamos. Sin adornos.",

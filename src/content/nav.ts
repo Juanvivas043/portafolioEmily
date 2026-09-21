@@ -7,11 +7,10 @@ export type NavItem = {
 /** En el mismo orden en que aparecen al bajar por la página. */
 export const navItems: NavItem[] = [
   { href: "#inicio", label: "Inicio" },
-  { href: "#sobre-mi", label: "Sobre mí" },
-  { href: "#proceso", label: "Proceso" },
+  { href: "#sobre-mi", label: "Sobre Mi" },
   { href: "#servicios", label: "Servicios" },
   { href: "#portafolio", label: "Portafolio" },
-  { href: "#contacto", label: "Contacto" },
+  { href: "#proceso", label: "Proceso" },
 ];
 
 /**
