@@ -107,19 +107,20 @@ export function Hero() {
           El marco manda la altura y el retrato lo desborda por dentro: así el
           parallax tiene recorrido sin que la foto se salga del marco ni la
           recorte el borde de la pantalla.
+
+          En móvil y tablet va debajo del texto con proporción fija 4:5; desde
+          lg pasa a su columna y toma el alto de la fila.
         */}
-        <div className="relative hidden h-full max-h-[34rem] min-h-[20rem] overflow-clip rounded-[36px] lg:block">
+        <div className="relative aspect-4/5 w-full max-w-[26rem] overflow-clip rounded-[30px] lg:aspect-auto lg:h-full lg:max-h-[34rem] lg:min-h-[20rem] lg:max-w-none lg:rounded-[36px]">
           <Parallax shift={9} className="absolute inset-0 m-[-9%]">
-            {/* Es la imagen LCP en escritorio, así que se precarga. En móvil
-                el marco está oculto: el «1px» de sizes hace que, si el
-                navegador la pide igual, se lleve la variante más pequeña. */}
+            {/* Es la imagen LCP en escritorio, así que se precarga. */}
             <Image
               src={retrato}
               alt={`${site.fullName}, retrato de estudio`}
               preload
               quality={90}
               placeholder="blur"
-              sizes="(min-width: 1024px) 31rem, 1px"
+              sizes="(min-width: 1024px) 31rem, min(31rem, calc(118vw - 3.5rem))"
               className="h-full w-full object-cover"
             />
           </Parallax>
