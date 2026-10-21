@@ -252,7 +252,19 @@ export function ContactForm({
             aria-invalid={Boolean(errors.consent)}
             className="mt-0.5 size-[18px] shrink-0 accent-magenta"
           />
-          Acepto que guardes mis datos para responderme.
+          <span>
+            Acepto que guardes mis datos para responderme, según la{" "}
+            {/* En pestaña nueva: así no se pierde lo que ya se escribió. */}
+            <a
+              href="/privacidad"
+              target="_blank"
+              rel="noopener"
+              className="font-bold text-bone underline decoration-magenta decoration-[1.5px] underline-offset-[3px] transition-colors hover:text-magenta"
+            >
+              política de privacidad
+            </a>
+            .
+          </span>
         </label>
         {errors.consent && (
           <p role="alert" className="text-xs font-semibold text-magenta">

@@ -1,5 +1,8 @@
+import Image from "next/image";
+
 import { Assemble } from "@/components/motion/Assemble";
-import { PortraitPlaceholder } from "@/components/ui/PortraitPlaceholder";
+import { site } from "@/content/site";
+import retrato from "../../../public/images/emily-sobre-mi.webp";
 
 export function About() {
   return (
@@ -61,7 +64,17 @@ export function About() {
         <div className="flex justify-center lg:justify-end">
           <Assemble y={3} x={1.5} rotate={3} className="w-full max-w-md lg:rotate-[2.5deg]">
             <figure className="grain overflow-clip rounded-2xl bg-[linear-gradient(168deg,#F3EAD8,#E7DCC6)] p-3 shadow-[0_38px_72px_-22px_rgba(0,0,0,0.9)]">
-              <PortraitPlaceholder className="aspect-4/5 w-full rounded-xl" />
+              <Image
+                src={retrato}
+                alt={`${site.fullName} sonriendo a cámara`}
+                quality={90}
+                placeholder="blur"
+                sizes="(min-width: 640px) 27rem, calc(100vw - 4.5rem)"
+                // Por encima del ::after de .grain: el grano es para el papel
+                // del marco, sobre la foto solo la ensuciaba.
+                className="relative z-1 aspect-4/5 w-full rounded-xl object-cover"
+              />
+
             </figure>
           </Assemble>
         </div>

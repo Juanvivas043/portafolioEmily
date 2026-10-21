@@ -1,11 +1,12 @@
+import Image from "next/image";
 import { ArrowDown, ArrowRight } from "lucide-react";
 
 import { Assemble } from "@/components/motion/Assemble";
 import { Parallax } from "@/components/motion/Parallax";
 import { Reveal } from "@/components/motion/Reveal";
-import { PortraitPlaceholder } from "@/components/ui/PortraitPlaceholder";
 import { Sticker } from "@/components/ui/Sticker";
 import { site } from "@/content/site";
+import retrato from "../../../public/images/emily-hero.webp";
 
 /**
  * Hero a una pantalla exacta.
@@ -109,7 +110,18 @@ export function Hero() {
         */}
         <div className="relative hidden h-full max-h-[34rem] min-h-[20rem] overflow-clip rounded-[36px] lg:block">
           <Parallax shift={9} className="absolute inset-0 m-[-9%]">
-            <PortraitPlaceholder className="h-full w-full" />
+            {/* Es la imagen LCP en escritorio, así que se precarga. En móvil
+                el marco está oculto: el «1px» de sizes hace que, si el
+                navegador la pide igual, se lleve la variante más pequeña. */}
+            <Image
+              src={retrato}
+              alt={`${site.fullName}, retrato de estudio`}
+              preload
+              quality={90}
+              placeholder="blur"
+              sizes="(min-width: 1024px) 31rem, 1px"
+              className="h-full w-full object-cover"
+            />
           </Parallax>
 
           <Assemble

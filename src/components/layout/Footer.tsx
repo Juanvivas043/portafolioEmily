@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { ArrowUpRight, ArrowUp } from "lucide-react";
 
 import { SocialIcon } from "@/components/ui/SocialIcon";
@@ -64,12 +65,15 @@ export function Footer() {
               <ul className="mt-4 flex flex-col gap-2.5">
                 {navItems.map((item) => (
                   <li key={item.href}>
-                    <a
-                      href={item.href}
+                    {/* Con «/» delante: el pie también sale en las páginas de
+                        proyecto y de privacidad, donde «#servicios» a secas no
+                        lleva a ningún sitio. En la portada solo hace scroll. */}
+                    <Link
+                      href={`/${item.href}`}
                       className="text-[15px] font-semibold text-mist transition-colors hover:text-bone"
                     >
                       {item.label}
-                    </a>
+                    </Link>
                   </li>
                 ))}
               </ul>
@@ -82,12 +86,12 @@ export function Footer() {
               <ul className="mt-4 flex flex-col gap-2.5">
                 {services.map((service) => (
                   <li key={service.id}>
-                    <a
-                      href="#servicios"
+                    <Link
+                      href="/#servicios"
                       className="text-[15px] font-semibold text-mist transition-colors hover:text-bone"
                     >
                       {service.title}
-                    </a>
+                    </Link>
                   </li>
                 ))}
               </ul>
@@ -103,7 +107,7 @@ export function Footer() {
             </p>
 
             <a
-              href="#inicio"
+              href="#top"
               className="inline-flex items-center gap-2 text-[12px] font-bold tracking-[0.12em] text-muted uppercase transition-colors hover:text-bone"
             >
               Volver arriba
@@ -111,10 +115,19 @@ export function Footer() {
             </a>
           </div>
 
-          <p className="text-[13px] font-semibold text-muted">
-            Desarrollado por{" "}
-            <span className="text-bone">Juandev</span>
-          </p>
+          <div className="flex flex-wrap items-center justify-between gap-4">
+            <p className="text-[13px] font-semibold text-muted">
+              Desarrollado por{" "}
+              <span className="text-bone">Juandev</span>
+            </p>
+
+            <Link
+              href="/privacidad"
+              className="text-[13px] font-semibold text-muted underline decoration-bone/20 underline-offset-4 transition-colors hover:text-bone hover:decoration-magenta"
+            >
+              Política de privacidad
+            </Link>
+          </div>
         </div>
       </div>
 

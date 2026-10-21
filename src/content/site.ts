@@ -60,7 +60,7 @@ function resolveSiteUrl(): string {
 export const site = {
   name: "Emily",
   /** Apellido u ocupación larga para el pie y los metadatos. */
-  fullName: "Emily Silva Valero",
+  fullName: "Emily Silva",
   role: "Ejecutiva de cuentas",
   roleLong: "Ejecutiva de cuentas y creadora de contenido",
   tagline: "Del brief al post que funciona",

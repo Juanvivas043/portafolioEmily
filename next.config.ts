@@ -7,9 +7,12 @@ const nextConfig: NextConfig = {
     root: process.cwd(),
   },
   images: {
-    // AVIF primero: pesa bastante menos que WebP a calidad equivalente, y Next
-    // sirve WebP a quien no lo soporte.
-    formats: ["image/avif", "image/webp"],
+    // Solo WebP. AVIF pesa la mitad, pero alisa la piel y el pelo de los
+    // retratos hasta que se ven borrosos, y aquí la foto es lo que se vende.
+    formats: ["image/webp"],
+    // Next 16 solo admite las calidades listadas aquí (por defecto, 75). Los
+    // retratos van a 90: a 75 se notaba el empaste en piel y pelo.
+    qualities: [75, 90],
   },
 };
 
