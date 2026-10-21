@@ -1,3 +1,12 @@
+import type { StaticImageData } from "next/image";
+
+import logoCalorias from "../../public/images/marcas/0-calorias-montalban.webp";
+import logoChangan from "../../public/images/marcas/changan.webp";
+import logoMimesa from "../../public/images/marcas/grupo-mimesa.webp";
+import logoIberia from "../../public/images/marcas/iberia.webp";
+import logoRealStar from "../../public/images/marcas/real-star-caracas.webp";
+import logoToyota from "../../public/images/marcas/toyota.webp";
+
 export type Project = {
   slug: string;
   title: string;
@@ -6,6 +15,11 @@ export type Project = {
   description: string;
   services: string[];
   tint: "ember" | "violet" | "magenta" | "grape";
+  /**
+   * Logo en crema sobre transparente. Si falta, <BrandMark /> pinta el
+   * nombre con la tipografía display en su lugar.
+   */
+  logo?: StaticImageData;
 };
 
 export const projects: Project[] = [
@@ -24,6 +38,7 @@ export const projects: Project[] = [
       "Social Media Strategy",
     ],
     tint: "magenta",
+    logo: logoToyota,
   },
   {
     slug: "grupo-mimesa",
@@ -38,6 +53,7 @@ export const projects: Project[] = [
       "Social Media Management",
     ],
     tint: "ember",
+    logo: logoMimesa,
   },
   {
     slug: "iberia-de-venezuela",
@@ -52,6 +68,7 @@ export const projects: Project[] = [
       "Estrategia Digital",
     ],
     tint: "violet",
+    logo: logoIberia,
   },
   {
     slug: "0-calorias-montalban",
@@ -68,6 +85,7 @@ export const projects: Project[] = [
       "Coberturas en Vivo",
     ],
     tint: "grape",
+    logo: logoCalorias,
   },
   {
     slug: "changan-caracas",
@@ -83,6 +101,7 @@ export const projects: Project[] = [
       "Atención a la Comunidad",
     ],
     tint: "ember",
+    logo: logoChangan,
   },
   {
     slug: "real-star-caracas",
@@ -98,6 +117,7 @@ export const projects: Project[] = [
       "Identidad de Marca",
     ],
     tint: "violet",
+    logo: logoRealStar,
   },
 ];
 

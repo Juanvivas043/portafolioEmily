@@ -2,6 +2,7 @@ import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { Parallax } from "@/components/motion/Parallax";
 import { Reveal } from "@/components/motion/Reveal";
+import { BrandMark } from "@/components/ui/BrandMark";
 import { projects } from "@/content/projects";
 
 const TINT: Record<string, string> = {
@@ -61,6 +62,17 @@ export function Portfolio() {
                     style={{ backgroundImage: TINT[project.tint] }}
                   />
                 </Parallax>
+
+                {/* Fuera del parallax: el fondo se desliza y el logo se queda
+                    quieto y nítido encima. */}
+                <span className="absolute inset-0 grid place-items-center p-8 transition-transform duration-500 ease-out-soft group-hover:scale-[1.04]">
+                  <BrandMark
+                    project={project}
+                    decorative
+                    sizes="12rem"
+                    className="h-16 w-[62%] max-w-48"
+                  />
+                </span>
               </span>
               <div className="flex flex-1 flex-col justify-between gap-6 p-6 sm:p-7">
                 <div className="flex flex-col gap-3">

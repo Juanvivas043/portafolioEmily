@@ -6,6 +6,7 @@ import { ArrowLeft, Check, Sparkles } from "lucide-react";
 import { Footer } from "@/components/layout/Footer";
 import { RevealObserver } from "@/components/motion/RevealObserver";
 import { ContactForm } from "@/components/form/ContactForm";
+import { BrandMark } from "@/components/ui/BrandMark";
 import { getProject, projects } from "@/content/projects";
 
 const TINT: Record<string, string> = {
@@ -69,10 +70,16 @@ export default async function ProjectPage({
         </header>
 
         <div
-          aria-hidden
-          className="grain h-56 w-full sm:h-72 lg:h-96"
+          className="grain grid h-56 w-full place-items-center sm:h-72 lg:h-96"
           style={{ backgroundImage: TINT[project.tint] }}
-        />
+        >
+          <BrandMark
+            project={project}
+            preload
+            sizes="(min-width: 1024px) 26rem, 60vw"
+            className="relative z-1 h-24 w-[60%] max-w-[26rem] sm:h-32 lg:h-40"
+          />
+        </div>
 
         <div className="grid gap-12 px-6 py-16 sm:px-10 lg:grid-cols-[minmax(0,1.35fr)_minmax(0,1fr)] lg:gap-16 lg:px-[72px] lg:py-24">
           <div className="flex flex-col gap-10">
